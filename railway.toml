@@ -1,5 +1,8 @@
 [build]
 builder = "nixpacks"
 
-[deploy]  
+[deploy]
 startCommand = "npm start"
+
+[variables]
+NIXPACKS_NO_DOCKER = "1"

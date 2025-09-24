@@ -1,5 +1,5 @@
-# Use Node.js LTS version
-FROM node:18-alpine
+# Use specific Node.js version to avoid Docker Hub auth issues
+FROM node:18.17.0-alpine
 
 # Set working directory
 WORKDIR /app

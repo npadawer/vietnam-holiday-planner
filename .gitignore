@@ -37,3 +37,10 @@ dist/
 # Cache
 .cache/
 .parcel-cache/
+
+# Railway
+.railway/
+
+# Temporary files
+*.tmp
+*.temp

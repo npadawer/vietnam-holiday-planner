@@ -1783,6 +1783,14 @@
                     }
                 });
 
+                // Set up global click handler for popup buttons
+                window.markerClickHandler = (destinationId) => {
+                    const destination = destinations.find(d => d.id === destinationId);
+                    if (destination) {
+                        onDestinationClick(destination);
+                    }
+                };
+
                 // Add enhanced markers
                 destinations.forEach(destination => {
                     const customIcon = createCustomIcon(destination);
@@ -1804,7 +1812,7 @@
                                     ${destination.decemberWeather ? `<p>🌡️ ${destination.decemberWeather.temperature}</p>` : ''}
                                 </div>
                                 <div class="mt-2">
-                                    <button onclick="this.closest('.leaflet-popup').remove()"
+                                    <button onclick="window.markerClickHandler('${destination.id}')"
                                             style="background: linear-gradient(45deg, #dc2626, #fbbf24); color: white; border: none; padding: 6px 12px; border-radius: 4px; font-size: 12px; cursor: pointer;">
                                         View Details ✨
                                     </button>
@@ -1964,16 +1972,112 @@
             </div>
         );
 
-        const HomePage = ({ destinations, onDestinationSelect }) => {
+        const HomePage = ({ destinations, onDestinationSelect, onItineraryBuilder }) => {
             const [viewMode, setViewMode] = useState('map');
             const [searchTerm, setSearchTerm] = useState('');
             const [selectedRegion, setSelectedRegion] = useState('all');
+            const [showSuggestions, setShowSuggestions] = useState(false);
+            const [searchSuggestions, setSearchSuggestions] = useState([]);
+            const [favorites, setFavorites] = useState(() => {
+                const saved = localStorage.getItem('vietnam-planner-favorites');
+                return saved ? JSON.parse(saved) : [];
+            });
+            const [recentSearches, setRecentSearches] = useState(() => {
+                const saved = localStorage.getItem('vietnam-planner-recent-searches');
+                return saved ? JSON.parse(saved) : [];
+            });
+
+            // Save search to recent history
+            const saveSearchHistory = (searchTerm) => {
+                if (!searchTerm.trim() || searchTerm.length < 2) return;
+
+                const newRecentSearches = [
+                    searchTerm,
+                    ...recentSearches.filter(s => s !== searchTerm)
+                ].slice(0, 10); // Keep last 10 searches
+
+                setRecentSearches(newRecentSearches);
+                localStorage.setItem('vietnam-planner-recent-searches', JSON.stringify(newRecentSearches));
+            };
+
+            // Smart search with autocomplete
+            const generateSearchSuggestions = (term) => {
+                if (!term || term.length < 1) {
+                    // Show recent searches when no term is entered
+                    return recentSearches.map(search => ({ type: 'recent', name: search, item: null }));
+                }
+
+                if (term.length < 2) return [];
+
+                const allSearchItems = [
+                    // Recent searches that match
+                    ...recentSearches
+                        .filter(search => search.toLowerCase().includes(term.toLowerCase()))
+                        .map(search => ({ type: 'recent', name: search, item: null })),
+                    // Destinations
+                    ...destinations.map(d => ({ type: 'destination', name: d.name, item: d })),
+                    // Highlights
+                    ...destinations.flatMap(d => d.highlights.map(h => ({ type: 'highlight', name: h, item: d }))),
+                    // Restaurants
+                    ...enhancedRestaurants.map(r => ({ type: 'restaurant', name: r.name, item: r })),
+                    // Common search terms
+                    { type: 'activity', name: 'Street Food', item: null },
+                    { type: 'activity', name: 'Michelin Star', item: null },
+                    { type: 'activity', name: 'Anthony Bourdain', item: null },
+                    { type: 'activity', name: 'Motorbike Loop', item: null },
+                    { type: 'activity', name: 'UNESCO World Heritage', item: null }
+                ];
+
+                return allSearchItems
+                    .filter(item => item.name.toLowerCase().includes(term.toLowerCase()))
+                    .slice(0, 8) // Limit suggestions
+                    .sort((a, b) => {
+                        // Prioritize recent searches, then destinations, then restaurants, etc.
+                        const priority = { recent: 0, destination: 1, restaurant: 2, highlight: 3, activity: 4 };
+                        return priority[a.type] - priority[b.type];
+                    });
+            };
+
+            const handleSearchChange = (value) => {
+                setSearchTerm(value);
+                const suggestions = generateSearchSuggestions(value);
+                setSearchSuggestions(suggestions);
+                setShowSuggestions(value.length > 1 && suggestions.length > 0);
+            };
+
+            const handleSuggestionClick = (suggestion) => {
+                // Save to search history
+                saveSearchHistory(suggestion.name);
+
+                if (suggestion.type === 'destination' && suggestion.item) {
+                    onDestinationSelect(suggestion.item);
+                } else if (suggestion.type === 'restaurant') {
+                    setSearchTerm(suggestion.name);
+                } else {
+                    setSearchTerm(suggestion.name);
+                }
+                setShowSuggestions(false);
+            };
+
+            // Favorites management
+            const toggleFavorite = (destination) => {
+                const newFavorites = favorites.includes(destination.id)
+                    ? favorites.filter(id => id !== destination.id)
+                    : [...favorites, destination.id];
+
+                setFavorites(newFavorites);
+                localStorage.setItem('vietnam-planner-favorites', JSON.stringify(newFavorites));
+            };
 
             const filteredDestinations = destinations.filter(destination => {
                 const matchesSearch = destination.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                                     destination.description.toLowerCase().includes(searchTerm.toLowerCase());
-                const matchesRegion = selectedRegion === 'all' || destination.region === selectedRegion;
-                return matchesSearch && matchesRegion;
+                                     destination.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                                     destination.highlights.some(h => h.toLowerCase().includes(searchTerm.toLowerCase()));
+                const matchesRegion = selectedRegion === 'all' ||
+                                     selectedRegion === 'favorites' ||
+                                     destination.region === selectedRegion;
+                const matchesFavorites = selectedRegion !== 'favorites' || favorites.includes(destination.id);
+                return matchesSearch && matchesRegion && matchesFavorites;
             });
 
             return (
@@ -1984,13 +2088,76 @@
                             <p className="text-amber-100 mb-6 drop-shadow">Complete guide with Michelin-starred restaurants, authentic experiences, flight info, and December 2024 itineraries</p>
 
                             <div className="flex flex-col sm:flex-row gap-4 mb-6">
-                                <input
-                                    type="text"
-                                    placeholder="Search destinations..."
-                                    value={searchTerm}
-                                    onChange={(e) => setSearchTerm(e.target.value)}
-                                    className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
-                                />
+                                <div className="flex-1 relative">
+                                    <input
+                                        type="text"
+                                        placeholder="Search destinations, restaurants, activities..."
+                                        value={searchTerm}
+                                        onChange={(e) => handleSearchChange(e.target.value)}
+                                        onKeyPress={(e) => {
+                                            if (e.key === 'Enter' && searchTerm.trim()) {
+                                                saveSearchHistory(searchTerm);
+                                                setShowSuggestions(false);
+                                            }
+                                        }}
+                                        onFocus={() => {
+                                            const suggestions = generateSearchSuggestions(searchTerm);
+                                            setSearchSuggestions(suggestions);
+                                            setShowSuggestions(suggestions.length > 0);
+                                        }}
+                                        onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
+                                        className="w-full px-4 py-2 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                                    />
+                                    <div className="absolute right-3 top-2.5 text-gray-400">
+                                        🔍
+                                    </div>
+
+                                    {/* Autocomplete Suggestions */}
+                                    {showSuggestions && (
+                                        <div className="absolute top-full left-0 right-0 z-50 bg-white border border-gray-200 rounded-lg shadow-lg mt-1 max-h-80 overflow-y-auto">
+                                            {searchSuggestions.map((suggestion, index) => (
+                                                <div
+                                                    key={index}
+                                                    onClick={() => handleSuggestionClick(suggestion)}
+                                                    className="px-4 py-3 hover:bg-gray-50 cursor-pointer border-b border-gray-100 last:border-b-0"
+                                                >
+                                                    <div className="flex items-center gap-3">
+                                                        <span className="text-lg">
+                                                            {suggestion.type === 'destination' ? '📍' :
+                                                             suggestion.type === 'restaurant' ? '🍜' :
+                                                             suggestion.type === 'highlight' ? '✨' :
+                                                             suggestion.type === 'recent' ? '🕐' : '🎯'}
+                                                        </span>
+                                                        <div>
+                                                            <div className="font-medium text-gray-900">{suggestion.name}</div>
+                                                            <div className="text-sm text-gray-500 capitalize">{suggestion.type}</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                            {searchSuggestions.length === 0 && (
+                                                <div className="px-4 py-3 text-gray-500 text-center">
+                                                    No suggestions found
+                                                </div>
+                                            )}
+                                            {searchSuggestions.some(s => s.type === 'recent') && (
+                                                <div className="border-t border-gray-200 pt-2">
+                                                    <button
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            setRecentSearches([]);
+                                                            localStorage.removeItem('vietnam-planner-recent-searches');
+                                                            setShowSuggestions(false);
+                                                        }}
+                                                        className="w-full px-4 py-2 text-sm text-gray-500 hover:bg-red-50 hover:text-red-600 transition-colors"
+                                                    >
+                                                        🗑️ Clear Recent Searches
+                                                    </button>
+                                                </div>
+                                            )}
+                                        </div>
+                                    )}
+                                </div>
                                 <select
                                     value={selectedRegion}
                                     onChange={(e) => setSelectedRegion(e.target.value)}
@@ -2000,6 +2167,7 @@
                                     <option value="north">North Vietnam</option>
                                     <option value="central">Central Vietnam</option>
                                     <option value="south">South Vietnam</option>
+                                    <option value="favorites">❤️ Favorites Only</option>
                                 </select>
                                 <div className="flex bg-gray-100 rounded-lg p-1">
                                     <button
@@ -2019,6 +2187,12 @@
                                         📋 Grid
                                     </button>
                                 </div>
+                                <button
+                                    onClick={onItineraryBuilder}
+                                    className="px-4 py-2 bg-gradient-to-r from-red-600 to-yellow-500 text-white font-medium rounded-lg hover:from-red-700 hover:to-yellow-600 transition-all duration-200 shadow-md hover:shadow-lg"
+                                >
+                                    📅 Build Itinerary
+                                </button>
                             </div>
 
                             {/* Quick Flight Links */}
@@ -2042,6 +2216,39 @@
                                         </a>
                                     ))}
                                 </div>
+
+                                {/* Favorites Section */}
+                                {favorites.length > 0 && (
+                                    <div className="bg-pink-50 border border-pink-200 rounded-lg p-4 mb-6">
+                                        <h3 className="font-semibold text-pink-900 mb-2 flex items-center gap-2">
+                                            ❤️ Your Favorite Destinations ({favorites.length})
+                                        </h3>
+                                        <div className="flex flex-wrap gap-2">
+                                            {favorites.map(favoriteId => {
+                                                const destination = destinations.find(d => d.id === favoriteId);
+                                                if (!destination) return null;
+                                                return (
+                                                    <button
+                                                        key={favoriteId}
+                                                        onClick={() => onDestinationSelect(destination)}
+                                                        className="text-sm bg-pink-100 text-pink-700 px-3 py-1 rounded-full hover:bg-pink-200 flex items-center gap-1"
+                                                    >
+                                                        <span>{destination.name}</span>
+                                                        <button
+                                                            onClick={(e) => {
+                                                                e.stopPropagation();
+                                                                toggleFavorite(destination);
+                                                            }}
+                                                            className="ml-1 hover:text-pink-900"
+                                                        >
+                                                            ×
+                                                        </button>
+                                                    </button>
+                                                );
+                                            })}
+                                        </div>
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>
@@ -2058,9 +2265,19 @@
                         ) : (
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                                 {filteredDestinations.map((destination) => (
-                                    <div key={destination.id} className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow cursor-pointer border border-gray-200 p-6"
+                                    <div key={destination.id} className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow cursor-pointer border border-gray-200 p-6 relative"
                                          onClick={() => onDestinationSelect(destination)}>
-                                        <div className="flex items-start justify-between mb-3">
+                                        <button
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                toggleFavorite(destination);
+                                            }}
+                                            className="absolute top-3 right-3 z-10 p-2 hover:bg-gray-100 rounded-full transition-colors"
+                                            title={favorites.includes(destination.id) ? 'Remove from favorites' : 'Add to favorites'}
+                                        >
+                                            {favorites.includes(destination.id) ? '❤️' : '🤍'}
+                                        </button>
+                                        <div className="flex items-start justify-between mb-3 pr-10">
                                             <h3 className="text-xl font-bold text-gray-800">{destination.name}</h3>
                                             <span
                                                 className="px-3 py-1 rounded-full text-xs font-medium text-white"
@@ -2118,19 +2335,442 @@
             );
         };
 
+        // Itinerary Builder Component
+        const ItineraryBuilder = ({ destinations, restaurants, onBack }) => {
+            const [itinerary, setItinerary] = useState({
+                name: "My Vietnam Adventure",
+                days: [],
+                travelers: 2,
+                budget: { accommodation: 0, food: 0, transport: 0, activities: 0 }
+            });
+            const [draggedItem, setDraggedItem] = useState(null);
+            const [showShareModal, setShowShareModal] = useState(false);
+            const [shareableLink, setShareableLink] = useState('');
+            const [collaborators, setCollaborators] = useState([]);
+
+            // Travel time calculator
+            const calculateTravelTime = (from, to) => {
+                const travelTimes = {
+                    'hanoi-saigon': { flight: '2h', train: '12h', bus: '30h' },
+                    'hanoi-sapa': { bus: '5h', train: '8h' },
+                    'hanoi-ha-long-bay': { bus: '3h', car: '2.5h' },
+                    'hanoi-hoi-an': { flight: '1.5h', bus: '14h' },
+                    'hoi-an-saigon': { flight: '1.5h', bus: '18h' },
+                    'sapa-ha-giang': { bus: '4h', motorbike: '3h' }
+                };
+
+                const key = `${from.id}-${to.id}`;
+                const reverseKey = `${to.id}-${from.id}`;
+                return travelTimes[key] || travelTimes[reverseKey] || { bus: '6h', estimate: true };
+            };
+
+            // Collaborative features
+            const generateShareableLink = () => {
+                const itineraryData = encodeURIComponent(JSON.stringify(itinerary));
+                const link = `${window.location.origin}${window.location.pathname}?itinerary=${itineraryData}`;
+                setShareableLink(link);
+                setShowShareModal(true);
+
+                // Copy to clipboard
+                navigator.clipboard.writeText(link).then(() => {
+                    alert('Shareable link copied to clipboard!');
+                }).catch(() => {
+                    console.log('Please copy the link manually');
+                });
+            };
+
+            const addCollaborator = (email) => {
+                if (email && !collaborators.includes(email)) {
+                    setCollaborators([...collaborators, email]);
+                    // In a real app, this would send an invitation email
+                    alert(`Invitation sent to ${email}!`);
+                }
+            };
+
+            // Budget calculator
+            const calculateBudget = (day) => {
+                let total = 0;
+                day.activities?.forEach(activity => {
+                    if (activity.type === 'restaurant') {
+                        const range = activity.priceRange;
+                        total += range === '$' ? 8 : range === '$$' ? 25 : range === '$$$' ? 60 : 5;
+                    } else if (activity.type === 'destination') {
+                        total += 15; // Average activity cost
+                    }
+                });
+                return total;
+            };
+
+            // Add day to itinerary
+            const addDay = () => {
+                setItinerary(prev => ({
+                    ...prev,
+                    days: [...prev.days, {
+                        id: Date.now(),
+                        date: new Date(Date.now() + prev.days.length * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+                        destination: null,
+                        activities: [],
+                        notes: ''
+                    }]
+                }));
+            };
+
+            // Drag handlers
+            const handleDragStart = (e, item) => {
+                setDraggedItem(item);
+                e.dataTransfer.effectAllowed = 'move';
+            };
+
+            const handleDragOver = (e) => {
+                e.preventDefault();
+                e.dataTransfer.dropEffect = 'move';
+            };
+
+            const handleDrop = (e, dayIndex) => {
+                e.preventDefault();
+                if (!draggedItem) return;
+
+                setItinerary(prev => {
+                    const newDays = [...prev.days];
+                    if (!newDays[dayIndex].activities) newDays[dayIndex].activities = [];
+                    newDays[dayIndex].activities.push({
+                        ...draggedItem,
+                        id: Date.now(),
+                        timeSlot: 'morning'
+                    });
+                    return { ...prev, days: newDays };
+                });
+                setDraggedItem(null);
+            };
+
+            // Weather integration
+            const getClothingRecommendations = (destination, date) => {
+                if (!destination?.decemberWeather) return "Check weather for packing tips";
+                const weather = destination.decemberWeather;
+                return weather.clothing;
+            };
+
+            return (
+                <div className="min-h-screen" style={{background: 'linear-gradient(135deg, #fef3c7 0%, #fde68a 50%, #fef3c7 100%)'}}>
+                    <div className="shadow-sm border-b border-amber-300" style={{background: 'linear-gradient(90deg, #dc2626 0%, #fbbf24 100%)'}}>
+                        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                            <button
+                                onClick={onBack}
+                                className="flex items-center gap-2 text-white hover:text-amber-100 mb-4 transition-colors"
+                            >
+                                ← Back to Map
+                            </button>
+                            <div className="flex justify-between items-start">
+                                <div>
+                                    <h1 className="text-3xl font-bold text-white mb-2 drop-shadow-lg">Itinerary Builder</h1>
+                                    <p className="text-amber-100 drop-shadow">Plan your perfect Vietnam adventure with drag-and-drop simplicity</p>
+                                </div>
+                                <div className="flex gap-2">
+                                    <button
+                                        onClick={generateShareableLink}
+                                        className="px-4 py-2 bg-white bg-opacity-20 text-white border border-white border-opacity-30 rounded-lg hover:bg-opacity-30 transition-all duration-200"
+                                    >
+                                        🔗 Share
+                                    </button>
+                                    <button
+                                        onClick={() => {
+                                            const email = prompt("Enter collaborator's email:");
+                                            if (email) addCollaborator(email);
+                                        }}
+                                        className="px-4 py-2 bg-white bg-opacity-20 text-white border border-white border-opacity-30 rounded-lg hover:bg-opacity-30 transition-all duration-200"
+                                    >
+                                        👥 Invite
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+
+                            {/* Sidebar - Destinations and Activities */}
+                            <div className="lg:col-span-1">
+                                <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 mb-6">
+                                    <h3 className="font-semibold text-gray-900 mb-4">🏛️ Destinations</h3>
+                                    <div className="space-y-2">
+                                        {destinations.map(dest => (
+                                            <div
+                                                key={dest.id}
+                                                draggable
+                                                onDragStart={(e) => handleDragStart(e, { ...dest, type: 'destination' })}
+                                                className="p-3 border border-gray-200 rounded cursor-move hover:bg-gray-50 transition-colors"
+                                            >
+                                                <div className="flex items-center gap-2">
+                                                    <span className="text-lg">
+                                                        {dest.name.includes('Hanoi') ? '🏛️' :
+                                                         dest.name.includes('Saigon') ? '🏙️' :
+                                                         dest.name.includes('Hoi An') ? '🏮' :
+                                                         dest.name.includes('Sapa') ? '🏔️' :
+                                                         dest.name.includes('Ha Long') ? '⛵' : '📍'}
+                                                    </span>
+                                                    <div>
+                                                        <div className="font-medium text-sm">{dest.name}</div>
+                                                        <div className="text-xs text-gray-500">{dest.duration}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
+                                    <h3 className="font-semibold text-gray-900 mb-4">🍜 Restaurants</h3>
+                                    <div className="space-y-2 max-h-96 overflow-y-auto">
+                                        {restaurants.slice(0, 10).map(restaurant => (
+                                            <div
+                                                key={restaurant.id}
+                                                draggable
+                                                onDragStart={(e) => handleDragStart(e, { ...restaurant, type: 'restaurant' })}
+                                                className="p-2 border border-gray-200 rounded cursor-move hover:bg-gray-50 transition-colors"
+                                            >
+                                                <div className="font-medium text-sm">{restaurant.name}</div>
+                                                <div className="text-xs text-gray-500">{restaurant.specialty}</div>
+                                                <div className="text-xs text-green-600 font-medium">{restaurant.priceRange}</div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Main Timeline */}
+                            <div className="lg:col-span-3">
+                                <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
+                                    <div className="flex justify-between items-center mb-6">
+                                        <div>
+                                            <input
+                                                type="text"
+                                                value={itinerary.name}
+                                                onChange={(e) => setItinerary(prev => ({ ...prev, name: e.target.value }))}
+                                                className="text-2xl font-bold text-gray-900 bg-transparent border-none p-0 focus:outline-none focus:ring-0"
+                                            />
+                                            <div className="text-sm text-gray-500">
+                                                {itinerary.days.length} days planned • {itinerary.travelers} travelers
+                                            </div>
+                                        </div>
+                                        <div className="flex gap-2">
+                                            <input
+                                                type="number"
+                                                value={itinerary.travelers}
+                                                onChange={(e) => setItinerary(prev => ({ ...prev, travelers: parseInt(e.target.value) }))}
+                                                className="w-16 px-2 py-1 border border-gray-300 rounded text-sm"
+                                                min="1"
+                                                max="10"
+                                            />
+                                            <button
+                                                onClick={addDay}
+                                                className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 text-sm"
+                                            >
+                                                + Add Day
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    {/* Timeline */}
+                                    <div className="space-y-6">
+                                        {itinerary.days.map((day, dayIndex) => (
+                                            <div key={day.id} className="relative">
+                                                <div className="flex items-center gap-4 mb-4">
+                                                    <div className="bg-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">
+                                                        {dayIndex + 1}
+                                                    </div>
+                                                    <input
+                                                        type="date"
+                                                        value={day.date}
+                                                        onChange={(e) => {
+                                                            const newDays = [...itinerary.days];
+                                                            newDays[dayIndex].date = e.target.value;
+                                                            setItinerary(prev => ({ ...prev, days: newDays }));
+                                                        }}
+                                                        className="px-3 py-1 border border-gray-300 rounded"
+                                                    />
+                                                    <div className="text-sm text-gray-500">
+                                                        Budget: ${calculateBudget(day) * itinerary.travelers}
+                                                    </div>
+                                                </div>
+
+                                                <div
+                                                    onDragOver={handleDragOver}
+                                                    onDrop={(e) => handleDrop(e, dayIndex)}
+                                                    className="min-h-32 border-2 border-dashed border-gray-200 rounded-lg p-4 bg-gray-50 hover:border-blue-300 transition-colors"
+                                                >
+                                                    {day.activities?.length > 0 ? (
+                                                        <div className="space-y-3">
+                                                            {day.activities.map((activity, actIndex) => (
+                                                                <div key={activity.id} className="bg-white rounded-lg border border-gray-200 p-3">
+                                                                    <div className="flex justify-between items-start">
+                                                                        <div>
+                                                                            <div className="font-medium">{activity.name}</div>
+                                                                            <div className="text-sm text-gray-600">
+                                                                                {activity.type === 'restaurant' ? activity.specialty : activity.description?.substring(0, 100) + '...'}
+                                                                            </div>
+                                                                            {activity.type === 'restaurant' && (
+                                                                                <div className="text-sm text-green-600 font-medium">{activity.priceRange} per person</div>
+                                                                            )}
+                                                                        </div>
+                                                                        <select
+                                                                            value={activity.timeSlot || 'morning'}
+                                                                            onChange={(e) => {
+                                                                                const newDays = [...itinerary.days];
+                                                                                newDays[dayIndex].activities[actIndex].timeSlot = e.target.value;
+                                                                                setItinerary(prev => ({ ...prev, days: newDays }));
+                                                                            }}
+                                                                            className="text-xs px-2 py-1 border border-gray-300 rounded"
+                                                                        >
+                                                                            <option value="morning">Morning</option>
+                                                                            <option value="afternoon">Afternoon</option>
+                                                                            <option value="evening">Evening</option>
+                                                                        </select>
+                                                                    </div>
+
+                                                                    {/* Weather Integration */}
+                                                                    {activity.type === 'destination' && activity.decemberWeather && (
+                                                                        <div className="mt-2 p-2 bg-sky-50 border border-sky-200 rounded text-xs">
+                                                                            <div><strong>Weather:</strong> {activity.decemberWeather.temperature}</div>
+                                                                            <div><strong>Pack:</strong> {getClothingRecommendations(activity, day.date)}</div>
+                                                                        </div>
+                                                                    )}
+                                                                </div>
+                                                            ))}
+                                                        </div>
+                                                    ) : (
+                                                        <div className="text-center text-gray-500 py-8">
+                                                            Drag destinations and restaurants here to build your day
+                                                        </div>
+                                                    )}
+                                                </div>
+
+                                                {/* Travel time to next destination */}
+                                                {dayIndex < itinerary.days.length - 1 && (
+                                                    <div className="mt-4 text-center">
+                                                        <div className="inline-block bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm">
+                                                            Travel Day {dayIndex + 1} → {dayIndex + 2}
+                                                        </div>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                {/* Budget Summary */}
+                                <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                                    <h3 className="font-semibold text-gray-900 mb-4">💰 Budget Summary</h3>
+                                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                        {['Food', 'Transport', 'Activities', 'Accommodation'].map(category => {
+                                            const total = itinerary.days.reduce((sum, day) => sum + calculateBudget(day), 0) * itinerary.travelers;
+                                            return (
+                                                <div key={category} className="text-center">
+                                                    <div className="text-2xl font-bold text-gray-900">${Math.round(total / 4)}</div>
+                                                    <div className="text-sm text-gray-500">{category}</div>
+                                                </div>
+                                            );
+                                        })}
+                                    </div>
+                                    <div className="mt-4 pt-4 border-t border-gray-200">
+                                        <div className="flex justify-between text-lg font-bold">
+                                            <span>Total Estimated Cost:</span>
+                                            <span>${itinerary.days.reduce((sum, day) => sum + calculateBudget(day), 0) * itinerary.travelers}</span>
+                                        </div>
+                                        <div className="text-sm text-gray-500">For {itinerary.travelers} travelers over {itinerary.days.length} days</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Collaborators Display */}
+                    {collaborators.length > 0 && (
+                        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-4">
+                            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
+                                <h3 className="font-semibold text-gray-900 mb-2">👥 Collaborators</h3>
+                                <div className="flex flex-wrap gap-2">
+                                    {collaborators.map((email, index) => (
+                                        <span key={index} className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm flex items-center gap-1">
+                                            {email}
+                                            <button
+                                                onClick={() => setCollaborators(collaborators.filter((_, i) => i !== index))}
+                                                className="ml-1 hover:text-blue-900"
+                                            >
+                                                ×
+                                            </button>
+                                        </span>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Share Modal */}
+                    {showShareModal && (
+                        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" onClick={() => setShowShareModal(false)}>
+                            <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4" onClick={(e) => e.stopPropagation()}>
+                                <h3 className="text-lg font-semibold mb-4">Share Your Itinerary</h3>
+                                <p className="text-gray-600 mb-4">Copy this link to share your itinerary with others:</p>
+                                <div className="bg-gray-100 p-3 rounded border mb-4">
+                                    <code className="text-sm break-all">{shareableLink}</code>
+                                </div>
+                                <div className="flex gap-2 justify-end">
+                                    <button
+                                        onClick={() => navigator.clipboard.writeText(shareableLink)}
+                                        className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                                    >
+                                        Copy Link
+                                    </button>
+                                    <button
+                                        onClick={() => setShowShareModal(false)}
+                                        className="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400"
+                                    >
+                                        Close
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+        };
+
         // Main App
         const App = () => {
+            const [currentView, setCurrentView] = useState('home'); // 'home', 'destination', 'itinerary'
             const [selectedDestination, setSelectedDestination] = useState(null);
 
-            return selectedDestination ? (
-                <DestinationPage
-                    destination={selectedDestination}
-                    onBack={() => setSelectedDestination(null)}
-                />
-            ) : (
+            if (currentView === 'destination' && selectedDestination) {
+                return (
+                    <DestinationPage
+                        destination={selectedDestination}
+                        onBack={() => {
+                            setCurrentView('home');
+                            setSelectedDestination(null);
+                        }}
+                    />
+                );
+            }
+
+            if (currentView === 'itinerary') {
+                return (
+                    <ItineraryBuilder
+                        destinations={destinations}
+                        restaurants={enhancedRestaurants}
+                        onBack={() => setCurrentView('home')}
+                    />
+                );
+            }
+
+            return (
                 <HomePage
                     destinations={destinations}
-                    onDestinationSelect={setSelectedDestination}
+                    onDestinationSelect={(dest) => {
+                        setSelectedDestination(dest);
+                        setCurrentView('destination');
+                    }}
+                    onItineraryBuilder={() => setCurrentView('itinerary')}
                 />
             );
         };

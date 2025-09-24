@@ -1922,11 +1922,21 @@
                     }
                 });
 
-                // Set up global click handler for popup buttons
+                // Set up global click handler for popup buttons with debugging
                 window.markerClickHandler = (destinationId) => {
+                    console.log('🔍 Marker clicked:', destinationId);
                     const destination = destinations.find(d => d.id === destinationId);
                     if (destination) {
-                        onDestinationClick(destination);
+                        console.log('✅ Destination found:', destination.name);
+                        try {
+                            onDestinationClick(destination);
+                        } catch (error) {
+                            console.error('❌ Error navigating to destination:', error);
+                            // Fallback: force navigation
+                            window.location.reload();
+                        }
+                    } else {
+                        console.error('❌ Destination not found for ID:', destinationId);
                     }
                 };
 

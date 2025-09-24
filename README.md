@@ -48,20 +48,28 @@ npm run dev
 
 ## 🍽️ Food Authority Sources
 
-Our restaurant recommendations are curated from:
+Our restaurant recommendations are curated from leading food authorities:
 - **Michelin Guide Vietnam 2024-2025** (starred restaurants)
 - **Anthony Bourdain** (Parts Unknown, No Reservations, A Cook's Tour)
+- **TimeOut** (Restaurant of the Year, Best Atmosphere, Essential picks)
+- **Eater** (Essential restaurants, Rising stars, Community choice)
+- **Condé Nast Traveler** (Top fine dining, Cultural experiences, Responsible travel)
 - **Netflix Street Food Series**
 - **National Geographic Travel**
-- **Will Fly for Food** (comprehensive local guides)
-- **James Beard Award winners** for Vietnamese cuisine
+- **James Beard Foundation** (Award winners for Vietnamese cuisine)
+- **Travel + Leisure** (International dining features)
 
 ### Featured Restaurants Include:
 - **Ănăn Saigon** - Michelin One Star Vietnamese fusion
 - **The Lunch Lady** - Bourdain's legendary street food find
 - **Pho Le** - Called "best pho in all of Vietnam"
 - **Banh Mi Phuong** - Bourdain's favorite banh mi in Hoi An
-- Plus 15+ more authenticated local gems
+- **Madame Hiền** - TimeOut Hanoi's Restaurant of the Year
+- **Secret Garden** - Condé Nast's most atmospheric Saigon dining
+- **Propaganda Bistro** - TimeOut's best atmosphere with Eater recognition
+- **Vy's Market** - Eater's #1 pick in Hoi An with cooking classes
+- **Reaching Out Tea House** - TimeOut's most meaningful dining experience
+- Plus 20+ more authenticated picks from leading food authorities
 
 ## ✈️ Travel Intelligence
 

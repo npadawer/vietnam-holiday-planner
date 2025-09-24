@@ -100,6 +100,50 @@
                     "cons": ["Can be chilly in early morning/evening"]
                 },
                 "transportFromSaigon": "1.5 hour flight or 12-hour luxury train",
+                "detailedTransportation": {
+                    "fromSaigon": {
+                        "flights": {
+                            "airlines": ["Vietnam Airlines", "VietJet Air", "Bamboo Airways"],
+                            "frequency": "Every 30-60 minutes, 6am-10pm",
+                            "duration": "1h 45min",
+                            "cost": "$50-150 economy, $200-400 business",
+                            "airports": "SGN (Tan Son Nhat) → HAN (Noi Bai)"
+                        },
+                        "trains": {
+                            "routes": ["SE1/SE3 (Reunification Express)", "SE7 Luxury Train"],
+                            "schedule": "SE1: Depart SGN 7:00pm → Arrive HAN 7:20am+1 (12h 20min)\nSE3: Depart SGN 6:10pm → Arrive HAN 6:00am+1 (11h 50min)",
+                            "cost": "Hard seat: $35-45, Soft seat: $45-60, Sleeper: $60-80",
+                            "booking": "vietnamrailway.com or station counter"
+                        },
+                        "buses": {
+                            "companies": ["Sinh Tourist", "Hanh Cafe", "Mai Linh Express"],
+                            "schedule": "Multiple departures 6:00am-11:00pm",
+                            "duration": "28-32 hours with stops",
+                            "cost": "$25-40 for sleeper bus",
+                            "note": "Not recommended - extremely long journey"
+                        }
+                    },
+                    "localTransportation": {
+                        "airport": {
+                            "taxi": "Airport taxi: $18-25 (45min), Grab: $12-18",
+                            "bus": "Bus 86: $1 (1.5h to Old Quarter)",
+                            "shuttle": "Jetstar shuttle: $2 (1h)"
+                        },
+                        "cityTransport": {
+                            "motorbikeTaxi": "Xe om: $1-3 per ride, negotiate price",
+                            "taxi": "Mai Linh, Vinasun: $0.50/km + $0.60 flag fall",
+                            "grab": "GrabBike: $0.80-2, GrabCar: $2-5",
+                            "bus": "City buses: $0.30 flat rate, routes 1-50",
+                            "cyclo": "Tourist rickshaw: $3-8 per hour (negotiate)",
+                            "walking": "Old Quarter very walkable, 15-20min between sites"
+                        },
+                        "rentalOptions": {
+                            "motorbike": "$5-10/day, license required",
+                            "bicycle": "$3-5/day from hostels/hotels",
+                            "car": "$25-40/day + driver $20-30/day"
+                        }
+                    }
+                },
                 "airports": {
                     "main": "Noi Bai International Airport (HAN)",
                     "distanceFromCenter": "28km north of city center",
@@ -158,6 +202,43 @@
                     "cons": ["Cold mornings/evenings", "Can be misty", "Pack warm clothes"]
                 },
                 "transportFromHanoi": "3.5 hour train + 1 hour bus, or 5 hour direct bus",
+                "detailedTransportation": {
+                    "fromHanoi": {
+                        "trains": {
+                            "routes": ["SP1/SP3 (Hanoi → Lao Cai)", "Victoria Express"],
+                            "schedule": "SP1: Depart HAN 9:35pm → Arrive Lao Cai 5:30am (7h 55min)\nSP3: Depart HAN 10:00pm → Arrive Lao Cai 6:20am (8h 20min)",
+                            "cost": "Hard sleeper: $15-20, Soft sleeper: $25-35, Victoria Express: $60-80",
+                            "note": "Then 1h bus from Lao Cai to Sapa ($3-5)"
+                        },
+                        "buses": {
+                            "companies": ["Good Morning Sapa", "Sapa Express", "Inter Bus Line"],
+                            "schedule": "Multiple departures: 6:30am, 8:30am, 1:30pm, 9:00pm, 10:30pm",
+                            "duration": "5-6 hours direct",
+                            "cost": "$8-15 standard bus, $12-18 luxury sleeper",
+                            "pickup": "Old Quarter hotels, My Dinh station"
+                        },
+                        "privateCar": {
+                            "duration": "3.5-4 hours",
+                            "cost": "$60-100 for 1-4 people",
+                            "companies": ["Sapa Sisters", "Highland Travel"],
+                            "advantages": "Flexible departure, scenic stops"
+                        }
+                    },
+                    "localTransportation": {
+                        "inSapa": {
+                            "walking": "Town center very compact, 10min walk end-to-end",
+                            "motorbikeTaxi": "Xe om: $2-5 to nearby villages",
+                            "taxi": "Limited taxis, mainly hotel pickups: $3-8",
+                            "motorbikeRental": "$8-15/day, guided tours available"
+                        },
+                        "trekking": {
+                            "guidedTreks": "$15-25/day including lunch, homestay $10-15/night",
+                            "selfGuided": "Possible but guide recommended for villages",
+                            "villages": "Cat Cat (2km), Ta Van (12km), Ta Phin (6km)",
+                            "transportation": "Walking, motorbike, or local guide transport"
+                        }
+                    }
+                },
                 "accommodations": [
                     {
                         "name": "Sapa Mountain View 1",
@@ -264,6 +345,44 @@
                     "cons": ["Can be crowded (peak season)", "Boat can be chilly in wind"]
                 },
                 "transportFromHanoi": "3.5 hour drive or bus to Halong City + boat",
+                "detailedTransportation": {
+                    "fromHanoi": {
+                        "buses": {
+                            "companies": ["Halong Bay Express", "Queen Cafe", "Good Morning Cat Ba"],
+                            "schedule": "Departures every 30min: 6:00am-6:30pm",
+                            "duration": "2.5-3.5 hours to Ha Long City",
+                            "cost": "$5-8, luxury buses $10-15",
+                            "pickup": "Old Quarter hotels, My Dinh station",
+                            "note": "Then 30min boat to overnight cruise boats"
+                        },
+                        "privateCar": {
+                            "duration": "2.5-3 hours direct",
+                            "cost": "$60-100 for 1-4 people",
+                            "companies": ["Ha Long Tourism", "Vietnam Impressive"],
+                            "advantages": "Hotel pickup, flexible timing, scenic stops"
+                        },
+                        "tours": {
+                            "dayTrips": "Full package $25-45 including transport + lunch + cruise",
+                            "overnightCruise": "$80-200+ including pickup, meals, cabin",
+                            "luxury": "$300-800 for premium junk boats",
+                            "companies": ["Bhaya Cruises", "Paradise Cruises", "Ambassador Cruise"]
+                        }
+                    },
+                    "localTransportation": {
+                        "inHaLong": {
+                            "boats": "Main transport between islands, $5-15 per trip",
+                            "tenders": "Cruise ship to shore transfers included",
+                            "kayaks": "Included in most cruises, $10-15 rental",
+                            "walking": "Limited to main Ha Long City waterfront"
+                        },
+                        "onCruise": {
+                            "included": "All meals, activities, transfers to caves/islands",
+                            "kayaking": "Usually included, guided tours available",
+                            "caves": "Entrance fees typically included in package",
+                            "fishing": "Traditional activities often part of cruise"
+                        }
+                    }
+                },
                 "accommodations": [
                     {
                         "name": "Ha Long Bay Luxury Retreat",
@@ -399,6 +518,50 @@
                     "cons": ["Higher chance of rain", "More humid", "Some outdoor activities may be affected", "Pack rain gear"]
                 },
                 "transportFromHue": "3.5-hour motorbike ride via Hai Van Pass",
+                "detailedTransportation": {
+                    "fromDaNang": {
+                        "flights": {
+                            "airlines": ["Vietnam Airlines", "VietJet Air", "Bamboo Airways"],
+                            "airport": "Da Nang International Airport (DAD)",
+                            "then": "30min taxi/grab to Hoi An: $8-15"
+                        },
+                        "taxi": "Airport to Hoi An: $12-18, 30-40min",
+                        "grab": "GrabCar: $8-12, book from app",
+                        "bus": "Yellow Bus 01: $1, every 20min, 1 hour to Hoi An"
+                    },
+                    "fromHanoi": {
+                        "flights": {
+                            "route": "Hanoi → Da Nang → Taxi to Hoi An",
+                            "duration": "1.5h flight + 30min taxi",
+                            "cost": "$50-120 flight + $12-18 taxi"
+                        },
+                        "buses": {
+                            "companies": ["The Sinh Tourist", "Hanh Cafe", "Mai Linh Express"],
+                            "schedule": "Daily departures 6:00pm, 7:30pm (sleeper)",
+                            "duration": "12-14 hours overnight",
+                            "cost": "$15-25 sleeper bus"
+                        }
+                    },
+                    "localTransportation": {
+                        "inHoiAn": {
+                            "walking": "Ancient Town completely walkable, 15min end-to-end",
+                            "bicycle": "$2-3/day, most popular transport, very flat terrain",
+                            "motorbikeTaxi": "Xe om: $1-3 around town, $5-8 to beaches",
+                            "taxi": "Limited, mainly hotel calls: $3-8",
+                            "grab": "GrabBike: $1-2, GrabCar: $3-6"
+                        },
+                        "beaches": {
+                            "anBang": "5km from Ancient Town, bicycle 20min, xe om $3-5",
+                            "cuaDai": "4km from center, bicycle 15min, xe om $2-4",
+                            "rental": "Motorbike $5-8/day, bicycle $2-3/day"
+                        },
+                        "dayTrips": {
+                            "mySon": "Tour bus: $15-25 half day, includes transport + guide",
+                            "basketBoat": "$15-20 half day coconut forest tour with transport",
+                            "daNang": "Bus: $2-3, 1 hour, every 30min from Hoi An"
+                        }
+                    }
+                },
                 "airports": {
                     "main": "Da Nang Airport (DAD)",
                     "distanceFromCenter": "30km from Hoi An"
@@ -433,6 +596,48 @@
                     "cons": ["Can be very hot midday", "Air conditioning appreciated", "Stay hydrated"]
                 },
                 "transportFromHanoi": "2-hour flight",
+                "detailedTransportation": {
+                    "fromHanoi": {
+                        "flights": {
+                            "airlines": ["Vietnam Airlines", "VietJet Air", "Bamboo Airways", "Jetstar"],
+                            "frequency": "Every 30-60 minutes, 5:30am-11:00pm",
+                            "duration": "2h 15min",
+                            "cost": "$60-150 economy, $200-500 business",
+                            "airports": "HAN (Noi Bai) → SGN (Tan Son Nhat)"
+                        },
+                        "trains": {
+                            "routes": ["SE2/SE4 (Reunification Express)", "SE6/SE8"],
+                            "schedule": "SE2: Depart HAN 7:20pm → Arrive SGN 7:40am+1 (12h 20min)\nSE4: Depart HAN 6:00pm → Arrive SGN 6:10am+1 (12h 10min)",
+                            "cost": "Hard seat: $35-45, Soft sleeper: $60-85",
+                            "station": "Saigon Railway Station (District 3)"
+                        }
+                    },
+                    "localTransportation": {
+                        "airport": {
+                            "taxi": "Airport taxi: $8-12 (30min), Grab: $5-8",
+                            "bus": "Bus 49: $0.50 to Ben Thanh (45min), Bus 152: $0.50 to District 1",
+                            "shuttle": "Jetstar shuttle: $2 to city center"
+                        },
+                        "cityTransport": {
+                            "motorbikeTaxi": "Xe om: $1-3 per ride, everywhere available",
+                            "taxi": "Mai Linh, Vinasun: $0.45/km + $0.65 flag fall",
+                            "grab": "GrabBike: $0.60-2, GrabCar: $2-6",
+                            "bus": "City buses: $0.25 flat rate, routes 1-150",
+                            "cyclo": "Tourist areas: $5-10 per hour",
+                            "walking": "District 1 walkable, 20min Saigon River to Ben Thanh"
+                        },
+                        "rentalOptions": {
+                            "motorbike": "$4-8/day, license check varies by area",
+                            "bicycle": "$2-4/day, popular in Districts 1&3",
+                            "car": "$20-35/day + driver $15-25/day"
+                        },
+                        "dayTrips": {
+                            "cuChiTunnels": "Tour bus: $8-15, includes transport + guide (half day)",
+                            "mekongDelta": "Tour bus: $15-25, full day with boat rides",
+                            "vungTau": "Bus: $3-5 (2.5h), hydrofoil: $8-12 (1.5h)"
+                        }
+                    }
+                },
                 "airports": {
                     "main": "Tan Son Nhat International Airport (SGN)",
                     "distanceFromCenter": "8km from city center",
@@ -838,6 +1043,130 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            );
+        };
+
+        const TransportationDetailsCard = ({ destination }) => {
+            if (!destination.detailedTransportation) return null;
+
+            const transport = destination.detailedTransportation;
+
+            return (
+                <div className="bg-orange-50 border border-orange-200 rounded-lg p-4 mt-4">
+                    <h3 className="font-semibold text-orange-900 mb-3 flex items-center gap-2">
+                        🚌 Transportation Details
+                    </h3>
+
+                    {/* Long Distance Transportation */}
+                    {Object.keys(transport).filter(key => key.startsWith('from')).map(routeKey => {
+                        const route = transport[routeKey];
+                        const fromCity = routeKey.replace('from', '');
+
+                        return (
+                            <div key={routeKey} className="mb-4">
+                                <h4 className="font-medium text-orange-800 mb-2 text-sm">
+                                    🛫 From {fromCity}:
+                                </h4>
+
+                                {route.flights && (
+                                    <div className="mb-3 p-2 bg-white rounded border border-orange-100">
+                                        <div className="font-medium text-orange-700 text-xs mb-1">✈️ Flights:</div>
+                                        <div className="text-xs text-gray-700 space-y-1">
+                                            <div><strong>Airlines:</strong> {route.flights.airlines.join(', ')}</div>
+                                            <div><strong>Schedule:</strong> {route.flights.frequency}</div>
+                                            <div><strong>Duration:</strong> {route.flights.duration}</div>
+                                            <div><strong>Cost:</strong> {route.flights.cost}</div>
+                                            <div><strong>Route:</strong> {route.flights.airports}</div>
+                                        </div>
+                                    </div>
+                                )}
+
+                                {route.trains && (
+                                    <div className="mb-3 p-2 bg-white rounded border border-orange-100">
+                                        <div className="font-medium text-orange-700 text-xs mb-1">🚂 Trains:</div>
+                                        <div className="text-xs text-gray-700 space-y-1">
+                                            <div><strong>Routes:</strong> {route.trains.routes.join(', ')}</div>
+                                            <div><strong>Schedule:</strong></div>
+                                            <div className="whitespace-pre-line pl-2">{route.trains.schedule}</div>
+                                            <div><strong>Cost:</strong> {route.trains.cost}</div>
+                                            {route.trains.booking && <div><strong>Booking:</strong> {route.trains.booking}</div>}
+                                            {route.trains.note && <div><strong>Note:</strong> {route.trains.note}</div>}
+                                            {route.trains.station && <div><strong>Station:</strong> {route.trains.station}</div>}
+                                        </div>
+                                    </div>
+                                )}
+
+                                {route.buses && (
+                                    <div className="mb-3 p-2 bg-white rounded border border-orange-100">
+                                        <div className="font-medium text-orange-700 text-xs mb-1">🚌 Buses:</div>
+                                        <div className="text-xs text-gray-700 space-y-1">
+                                            <div><strong>Companies:</strong> {route.buses.companies.join(', ')}</div>
+                                            <div><strong>Schedule:</strong> {route.buses.schedule}</div>
+                                            <div><strong>Duration:</strong> {route.buses.duration}</div>
+                                            <div><strong>Cost:</strong> {route.buses.cost}</div>
+                                            {route.buses.pickup && <div><strong>Pickup:</strong> {route.buses.pickup}</div>}
+                                            {route.buses.note && <div className="text-amber-600"><strong>Note:</strong> {route.buses.note}</div>}
+                                        </div>
+                                    </div>
+                                )}
+
+                                {route.privateCar && (
+                                    <div className="mb-3 p-2 bg-white rounded border border-orange-100">
+                                        <div className="font-medium text-orange-700 text-xs mb-1">🚗 Private Car:</div>
+                                        <div className="text-xs text-gray-700 space-y-1">
+                                            <div><strong>Duration:</strong> {route.privateCar.duration}</div>
+                                            <div><strong>Cost:</strong> {route.privateCar.cost}</div>
+                                            <div><strong>Companies:</strong> {route.privateCar.companies.join(', ')}</div>
+                                            <div><strong>Advantages:</strong> {route.privateCar.advantages}</div>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                        );
+                    })}
+
+                    {/* Local Transportation */}
+                    {transport.localTransportation && (
+                        <div className="mt-4 pt-4 border-t border-orange-200">
+                            <h4 className="font-medium text-orange-800 mb-2 text-sm">
+                                🏃‍♂️ Local Transportation:
+                            </h4>
+
+                            {transport.localTransportation.airport && (
+                                <div className="mb-3 p-2 bg-white rounded border border-orange-100">
+                                    <div className="font-medium text-orange-700 text-xs mb-1">✈️ Airport Transfer:</div>
+                                    <div className="text-xs text-gray-700 space-y-1">
+                                        {transport.localTransportation.airport.taxi && <div><strong>Taxi:</strong> {transport.localTransportation.airport.taxi}</div>}
+                                        {transport.localTransportation.airport.bus && <div><strong>Bus:</strong> {transport.localTransportation.airport.bus}</div>}
+                                        {transport.localTransportation.airport.shuttle && <div><strong>Shuttle:</strong> {transport.localTransportation.airport.shuttle}</div>}
+                                    </div>
+                                </div>
+                            )}
+
+                            {transport.localTransportation.cityTransport && (
+                                <div className="mb-3 p-2 bg-white rounded border border-orange-100">
+                                    <div className="font-medium text-orange-700 text-xs mb-1">🌆 City Transport:</div>
+                                    <div className="text-xs text-gray-700 space-y-1">
+                                        {Object.entries(transport.localTransportation.cityTransport).map(([key, value]) => (
+                                            <div key={key}><strong>{key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1')}:</strong> {value}</div>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+
+                            {transport.localTransportation.rentalOptions && (
+                                <div className="mb-3 p-2 bg-white rounded border border-orange-100">
+                                    <div className="font-medium text-orange-700 text-xs mb-1">🛵 Rental Options:</div>
+                                    <div className="text-xs text-gray-700 space-y-1">
+                                        {Object.entries(transport.localTransportation.rentalOptions).map(([key, value]) => (
+                                            <div key={key}><strong>{key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1')}:</strong> {value}</div>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    )}
                 </div>
             );
         };
@@ -1424,6 +1753,9 @@
 
                             {/* December Weather */}
                             <DecemberWeatherCard destination={destination} />
+
+                            {/* Transportation Details */}
+                            <TransportationDetailsCard destination={destination} />
 
                             {/* Transportation */}
                             <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">

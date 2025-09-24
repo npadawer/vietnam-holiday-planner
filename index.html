@@ -348,17 +348,20 @@
                 "name": "Bún Chả Hương Liên",
                 "destinationId": "hanoi",
                 "address": "24 Lê Văn Hưu, Hai Bà Trưng, Hanoi",
-                "specialty": "Bun Cha",
-                "description": "Famous 'Bun Cha Obama' restaurant where Anthony Bourdain hosted former US President Obama for Parts Unknown. Traditional grilled pork with rice noodles in aromatic broth.",
+                "specialty": "Bun Cha (Obama Combo)",
+                "description": "Famous 'Bun Cha Obama' restaurant where Anthony Bourdain hosted former US President Obama for Parts Unknown in 2016. The table where they ate is now preserved under glass. Offers the famous 'Combo Obama' meal.",
                 "priceRange": "$",
                 "bourdainPick": true,
                 "userRating": 4,
-                "tags": ["bourdain", "bun-cha", "famous", "obama", "celebrity"],
-                "awards": ["Featured on Bourdain's Parts Unknown"],
-                "mustTryDishes": ["Classic Bun Cha", "Grilled pork patties", "Rice vermicelli"],
+                "tags": ["bourdain", "bun-cha", "famous", "obama", "celebrity", "preserved-table"],
+                "awards": ["Featured on Bourdain's Parts Unknown", "Obama Presidential Visit 2016"],
+                "mustTryDishes": ["Combo Obama (Bun Cha + Crab Spring Roll + Hanoi Beer)", "Traditional Bun Cha", "Fried seafood roll"],
                 "bookingLinks": {
-                    "tripadvisor": "https://www.tripadvisor.com/Restaurant_Review-g293924-d1158167-Reviews-Bun_Cha_Huong_Lien-Hanoi.html",
-                    "google": "https://www.google.com/search?q=Bun+Cha+Huong+Lien+Hanoi+restaurant"
+                    "tripadvisor": "https://www.tripadvisor.com/Restaurant_Review-g293924-d8088661-Reviews-Bun_Cha_Huong_Lien-Hanoi.html",
+                    "photos": "https://www.tripadvisor.com/Restaurant_Review-g293924-d8088661-Reviews-Bun_Cha_Huong_Lien-Hanoi.html",
+                    "story": "https://vietcetera.com/en/the-story-behind-obamas-bun-cha",
+                    "blogReview": "https://www.nomadicnotes.com/bun-cha-obama/",
+                    "hanoisGuide": "https://flavorsofhanoi.com/blog/bun-cha-huong-lien/"
                 }
             },
             {
@@ -380,14 +383,17 @@
                 "name": "Gia",
                 "destinationId": "hanoi",
                 "specialty": "Contemporary Vietnamese",
-                "description": "One Michelin Star restaurant (retained 2025). Elegant contemporary Vietnamese cuisine with refined techniques and local ingredients.",
+                "description": "One Michelin Star restaurant (retained 2025). Chef Sam Tran creates a 12-course seasonal menu inspired by Vietnamese culinary heritage. 'Gia đình' means 'family' - reflecting their longing for homeland.",
                 "priceRange": "$$$",
                 "userRating": 5,
                 "tags": ["michelin-star", "fine-dining", "contemporary", "vietnamese"],
-                "awards": ["Michelin One Star 2025"],
-                "mustTryDishes": ["Tasting menu featuring Vietnamese classics", "Seasonal specialties"],
+                "awards": ["Michelin One Star 2025", "First Vietnamese Woman Chef with Michelin Star"],
+                "mustTryDishes": ["12-course seasonal tasting menu", "Vietnamese heritage dishes", "Modern interpretations"],
                 "bookingLinks": {
-                    "michelin": "https://guide.michelin.com/vn/en/hanoi/restaurant/gia"
+                    "michelin": "https://guide.michelin.com/en/ha-noi/ha-noi_2974158/restaurant/gia-1202148",
+                    "photos": "https://guide.michelin.com/en/ha-noi/ha-noi_2974158/restaurant/gia-1202148",
+                    "chefProfile": "https://guide.michelin.com/vn/en/article/people/sam-tran-world-first-vietnamese-woman-michelin-star-gia",
+                    "chefStory": "https://guide.michelin.com/vn/en/article/people/sam-tran-craftsmanship-vietnamese-pride-vasta-stone"
                 }
             },
             // Ho Chi Minh City Restaurants (Comprehensive List)
@@ -403,8 +409,11 @@
                 "awards": ["Michelin One Star 2025", "Pioneer of Vietnamese Fusion"],
                 "mustTryDishes": ["Modern Vietnamese tasting menu", "Street food elevated", "French-Vietnamese fusion"],
                 "bookingLinks": {
-                    "michelin": "https://guide.michelin.com/vn/en/ho-chi-minh/restaurant/anan-saigon",
-                    "website": "https://www.anansaigon.com"
+                    "michelin": "https://guide.michelin.com/gb/en/ho-chi-minh/ho-chi-minh_2978179/restaurant/anan-saigon",
+                    "website": "https://www.anansaigon.com",
+                    "photos": "https://guide.michelin.com/gb/en/ho-chi-minh/ho-chi-minh_2978179/restaurant/anan-saigon",
+                    "chefProfile": "https://guide.michelin.com/vn/en/article/people/anan-saigon-peter-cuong-franklin-ho-chi-minh-city-s-first-and-only-michelin-star",
+                    "tripadvisor": "https://www.tripadvisor.com/Restaurant_Review-g293925-d10312435-Reviews-An_An_Saigon-Ho_Chi_Minh_City.html"
                 }
             },
             {
@@ -777,18 +786,32 @@
                     </div>
 
                     {restaurant.bookingLinks && (
-                        <div className="flex gap-2">
-                            {Object.entries(restaurant.bookingLinks).map(([platform, url]) => (
-                                <a
-                                    key={platform}
-                                    href={url}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="text-xs bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
-                                >
-                                    {platform} ↗
-                                </a>
-                            ))}
+                        <div className="flex flex-wrap gap-2">
+                            {Object.entries(restaurant.bookingLinks).map(([platform, url]) => {
+                                const linkLabels = {
+                                    'michelin': '⭐ Michelin Guide',
+                                    'website': '🌐 Official Website',
+                                    'tripadvisor': '📸 TripAdvisor Photos',
+                                    'photos': '📷 Photo Gallery',
+                                    'chefProfile': '👨‍🍳 Chef Story',
+                                    'chefStory': '📖 Chef Journey',
+                                    'story': '📚 Restaurant Story',
+                                    'blogReview': '✍️ Travel Blog',
+                                    'hanoisGuide': '🏛️ Hanoi Guide',
+                                    'google': '🔍 Google Search'
+                                };
+                                return (
+                                    <a
+                                        key={platform}
+                                        href={url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-xs bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 flex items-center gap-1"
+                                    >
+                                        {linkLabels[platform] || platform} ↗
+                                    </a>
+                                );
+                            })}
                         </div>
                     )}
                 </div>

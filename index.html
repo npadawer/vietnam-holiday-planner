@@ -93,6 +93,31 @@
             100% { background-position: 0% 50%; }
         }
 
+        @keyframes flowing-mist {
+            0% {
+                background-position: 0% 0%, 100% 100%, 50% 50%;
+                opacity: 0.6;
+            }
+            33% {
+                background-position: 30% 20%, 70% 80%, 80% 30%;
+                opacity: 0.8;
+            }
+            66% {
+                background-position: 60% 80%, 40% 20%, 20% 70%;
+                opacity: 0.4;
+            }
+            100% {
+                background-position: 0% 0%, 100% 100%, 50% 50%;
+                opacity: 0.6;
+            }
+        }
+
+        @keyframes silk-wave {
+            0% { background-position: 0% 0%, 0% 100px, 0% 200px; }
+            50% { background-position: 100% 50px, 100% 150px, 100% 250px; }
+            100% { background-position: 0% 0%, 0% 100px, 0% 200px; }
+        }
+
         .floating-temple {
             animation: float 4s ease-in-out infinite;
         }
@@ -133,18 +158,49 @@
             box-shadow: 0 8px 25px rgba(220, 38, 38, 0.15);
         }
 
-        /* Vietnamese Cultural Backgrounds */
+        /* Vietnamese Cultural Backgrounds - Flowing & Organic */
         .vietnam-pattern {
             background-image:
-                radial-gradient(circle at 20% 50%, rgba(220, 38, 38, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(251, 191, 36, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 40% 80%, rgba(220, 38, 38, 0.05) 0%, transparent 50%);
+                radial-gradient(ellipse 800px 400px at 20% 30%, rgba(220, 38, 38, 0.08) 0%, transparent 70%),
+                radial-gradient(ellipse 600px 800px at 80% 10%, rgba(251, 191, 36, 0.12) 0%, transparent 60%),
+                radial-gradient(ellipse 1000px 300px at 40% 90%, rgba(220, 38, 38, 0.06) 0%, transparent 80%),
+                radial-gradient(ellipse 400px 600px at 90% 70%, rgba(251, 191, 36, 0.08) 0%, transparent 65%),
+                radial-gradient(ellipse 500px 900px at 10% 20%, rgba(220, 38, 38, 0.04) 0%, transparent 75%);
         }
 
         .subtle-texture {
             background-image:
-                linear-gradient(30deg, rgba(220, 38, 38, 0.02) 12%, transparent 12.5%, transparent 87%, rgba(220, 38, 38, 0.02) 87.5%, rgba(220, 38, 38, 0.02)),
-                linear-gradient(150deg, rgba(251, 191, 36, 0.02) 12%, transparent 12.5%, transparent 87%, rgba(251, 191, 36, 0.02) 87.5%, rgba(251, 191, 36, 0.02));
+                conic-gradient(from 45deg at 25% 25%, rgba(220, 38, 38, 0.03) 0deg, transparent 90deg, rgba(251, 191, 36, 0.02) 180deg, transparent 270deg),
+                conic-gradient(from 225deg at 75% 75%, rgba(251, 191, 36, 0.04) 0deg, transparent 90deg, rgba(220, 38, 38, 0.02) 180deg, transparent 270deg),
+                radial-gradient(ellipse 200px 400px at 60% 40%, rgba(220, 38, 38, 0.01) 0%, transparent 70%);
+        }
+
+        /* Flowing Vietnamese Silk Pattern */
+        .silk-pattern {
+            background-image:
+                radial-gradient(ellipse 1200px 200px at 0% 50%, rgba(220, 38, 38, 0.05) 0%, transparent 100%),
+                radial-gradient(ellipse 1200px 200px at 100% 20%, rgba(251, 191, 36, 0.06) 0%, transparent 100%),
+                radial-gradient(ellipse 800px 100px at 50% 80%, rgba(220, 38, 38, 0.03) 0%, transparent 100%);
+            background-size: 100% 300px, 100% 400px, 100% 200px;
+            background-position: 0% 0%, 0% 100px, 0% 200px;
+            animation: silk-wave 20s ease-in-out infinite;
+        }
+
+        /* Flowing Lantern Glow */
+        .lantern-glow {
+            background-image:
+                radial-gradient(ellipse 300px 600px at 15% 25%, rgba(251, 191, 36, 0.08) 0%, rgba(220, 38, 38, 0.02) 50%, transparent 100%),
+                radial-gradient(ellipse 400px 800px at 85% 75%, rgba(220, 38, 38, 0.06) 0%, rgba(251, 191, 36, 0.03) 50%, transparent 100%),
+                radial-gradient(ellipse 500px 300px at 50% 50%, rgba(251, 191, 36, 0.04) 0%, transparent 100%);
+        }
+
+        /* Organic Mountain Mist */
+        .mountain-mist {
+            background-image:
+                linear-gradient(135deg, rgba(220, 38, 38, 0.02) 0%, transparent 30%, rgba(251, 191, 36, 0.03) 60%, transparent 100%),
+                radial-gradient(ellipse 1000px 400px at 30% 0%, rgba(251, 191, 36, 0.04) 0%, transparent 70%),
+                radial-gradient(ellipse 800px 600px at 70% 100%, rgba(220, 38, 38, 0.03) 0%, transparent 80%);
+            animation: flowing-mist 25s ease-in-out infinite;
         }
     </style>
 </head>
@@ -2566,12 +2622,13 @@
             };
 
             return (
-                <div className="min-h-screen" style={{
+                <div className="min-h-screen silk-pattern" style={{
                     background: `
-                        radial-gradient(circle at 20% 80%, rgba(220, 38, 38, 0.1) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 20%, rgba(251, 191, 36, 0.1) 0%, transparent 50%),
-                        radial-gradient(circle at 40% 40%, rgba(239, 68, 68, 0.05) 0%, transparent 50%),
-                        linear-gradient(135deg, #fef3c7 0%, #fed7aa 25%, #fde68a 50%, #fcd34d 75%, #fef3c7 100%)
+                        radial-gradient(ellipse 1400px 600px at 15% 85%, rgba(220, 38, 38, 0.08) 0%, transparent 70%),
+                        radial-gradient(ellipse 1000px 800px at 85% 15%, rgba(251, 191, 36, 0.12) 0%, transparent 65%),
+                        radial-gradient(ellipse 800px 1200px at 50% 50%, rgba(239, 68, 68, 0.04) 0%, transparent 80%),
+                        conic-gradient(from 225deg at 30% 70%, rgba(251, 191, 36, 0.06) 0deg, transparent 180deg),
+                        linear-gradient(135deg, #fef3c7 0%, #fed7aa 20%, #fde68a 40%, #fcd34d 60%, #fbbf24 80%, #fef3c7 100%)
                     `,
                     position: 'relative',
                     overflow: 'hidden'
@@ -2693,7 +2750,7 @@
                     </div>
 
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 vietnam-pattern subtle-texture">
+                        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 lantern-glow mountain-mist">
 
                             {/* Enhanced Sidebar - Available Destinations */}
                             <div className="lg:col-span-1 space-y-6">

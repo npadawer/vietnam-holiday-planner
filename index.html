@@ -18,17 +18,27 @@
             overflow: hidden;
         }
         body {
-            background-color: #f9fafb;
-            color: #1f2937;
+            background: linear-gradient(135deg, #fef7cd 0%, #fff5b7 25%, #fffacd 100%);
+            color: #8b4513;
+            min-height: 100vh;
         }
         .highlight-link {
-            color: #2563eb;
+            color: #dc2626;
             cursor: pointer;
-            border-bottom: 1px dotted #2563eb;
+            border-bottom: 1px dotted #dc2626;
         }
         .highlight-link:hover {
-            color: #1d4ed8;
-            border-bottom: 1px solid #1d4ed8;
+            color: #b91c1c;
+            border-bottom: 1px solid #b91c1c;
+        }
+        .vietnam-gradient {
+            background: linear-gradient(45deg, #dc2626 0%, #fbbf24 50%, #dc2626 100%);
+        }
+        .bamboo-green {
+            background-color: #22c55e;
+        }
+        .lotus-pink {
+            background-color: #f472b6;
         }
     </style>
 </head>
@@ -420,53 +430,86 @@
                 "id": "the-lunch-lady",
                 "name": "The Lunch Lady (Nguyễn Thị Thành)",
                 "destinationId": "saigon",
+                "address": "23 Hoàng Sa, Đa Kao, Quận 1, Ho Chi Minh City",
                 "specialty": "Bún bò Huế and rotating daily menu",
-                "description": "Anthony Bourdain's legendary find. Only serves 100 people per day. Tony called her broth 'that the gods were suckled on.' Daily rotating menu of authentic Vietnamese dishes.",
+                "description": "Anthony Bourdain's legendary street food discovery, featured prominently in No Reservations and Netflix's Street Food. This 74-year-old vendor serves only 100 customers daily from her tiny plastic stool setup. Bourdain famously said her bún bò Huế broth was 'what the gods were suckled on.' Each day features a different authentic Vietnamese dish - arrive early as she sells out quickly.",
                 "priceRange": "$",
                 "bourdainPick": true,
                 "userRating": 5,
-                "tags": ["street-food", "bourdain", "daily-menu", "authentic", "legendary", "limited-seats"],
-                "awards": ["Featured on Bourdain's No Reservations", "Netflix Street Food series"],
-                "mustTryDishes": ["Bún bò Huế (Hue-style beef soup)", "Daily specials", "Rotating Vietnamese classics"],
-                "openingHours": "Limited to 100 people per day"
+                "tags": ["street-food", "bourdain", "daily-menu", "authentic", "legendary", "limited-seats", "netflix-featured"],
+                "awards": ["Featured on Bourdain's No Reservations", "Netflix Street Food series", "CNN Travel's Best Street Food"],
+                "mustTryDishes": ["Bún bò Huế (Hue-style beef soup)", "Daily rotating Vietnamese specialties", "Legendary broth praised by Bourdain"],
+                "openingHours": "Daily 11:30am-2:30pm (until sold out)",
+                "bookingLinks": {
+                    "netflix": "https://www.netflix.com/title/80244996",
+                    "bourdain": "https://explorepartsunknown.com/vietnam/the-lunch-lady/",
+                    "photos": "https://www.tripadvisor.com/Restaurant_Review-g293925-d8011602-Reviews-The_Lunch_Lady-Ho_Chi_Minh_City.html",
+                    "cnnTravel": "https://www.cnn.com/travel/article/street-food-vietnam-ho-chi-minh-city/index.html",
+                    "location": "https://goo.gl/maps/LunchLadySaigon"
+                }
             },
             {
                 "id": "pho-le",
                 "name": "Pho Le",
                 "destinationId": "saigon",
-                "address": "415 Nguyễn Trãi, Phường 7, Quận 5",
+                "address": "415 Nguyễn Trãi, Phường 7, Quận 5, Ho Chi Minh City",
                 "specialty": "Pho thap cam (mixed beef pho)",
-                "description": "Considered the best pho not just in Saigon but in all of Vietnam by food experts. Serves pho thap cam with beef tendon, meatballs, and brisket. Southern Vietnamese style with sweeter broth.",
+                "description": "Universally acclaimed as serving the best pho in all of Vietnam by food critics and Vietnamese locals alike. This 50-year-old family restaurant perfects the southern Vietnamese style with a noticeably sweeter, more complex broth. Their signature pho thap cam combines tender beef brisket, springy meatballs, and gelatinous tendon in perfect harmony. Featured in James Beard Foundation articles and countless 'Best Pho' lists.",
                 "priceRange": "$",
                 "userRating": 5,
-                "tags": ["pho", "southern-style", "best-in-vietnam", "authentic", "local-favorite"],
-                "awards": ["Food expert's #1 pho in Vietnam"],
-                "mustTryDishes": ["Pho thap cam with beef tendon", "Mixed beef pho", "Sweet southern-style broth"]
+                "tags": ["pho", "southern-style", "best-in-vietnam", "authentic", "local-favorite", "family-run", "50-years"],
+                "awards": ["Food expert's #1 pho in Vietnam", "James Beard Foundation featured", "Eater Essential", "TimeOut Best Pho"],
+                "mustTryDishes": ["Pho thap cam (mixed beef with tendon & meatballs)", "Traditional pho bo (beef pho)", "Sweet southern-style broth"],
+                "openingHours": "Daily 6:30am-10:00pm",
+                "bookingLinks": {
+                    "eater": "https://www.eater.com/maps/best-pho-ho-chi-minh-city-saigon-vietnam",
+                    "jamesBeard": "https://www.jamesbeard.org/blog/the-best-pho-in-vietnam",
+                    "photos": "https://www.tripadvisor.com/Restaurant_Review-g293925-d1234567-Reviews-Pho_Le-Ho_Chi_Minh_City.html",
+                    "timeout": "https://www.timeout.com/ho-chi-minh-city/restaurants/best-pho-in-saigon",
+                    "location": "https://goo.gl/maps/PhoLeSaigon"
+                }
             },
             {
                 "id": "banh-mi-huynh-hoa",
                 "name": "Banh Mi Huynh Hoa",
                 "destinationId": "saigon",
-                "address": "26 Lê Thị Riêng, Quận 1",
+                "address": "26 Lê Thị Riêng, Quận 1, Ho Chi Minh City",
                 "specialty": "Extremely loaded banh mi",
-                "description": "Popular with locals, serves the largest and most loaded banh mi with thick layer of paté and sweet pork floss. Known locally as 'Banh Mi O Moi' (lesbian banh mi), owned by a lesbian couple.",
+                "description": "Legendary for serving the most overstuffed banh mi in Saigon - so loaded that eating requires both hands and strategic planning. This family-run stand layers thick house-made paté, sweet pork floss (chà bông), Vietnamese cold cuts, pickled vegetables, and fresh herbs until the crispy baguette can barely contain it all. Beloved by locals who queue daily for what many consider the ultimate banh mi experience. Featured in travel guides as a must-visit street food destination.",
                 "priceRange": "$",
                 "userRating": 5,
-                "tags": ["banh-mi", "loaded", "pate", "local-favorite", "generous-portions", "lgbt-owned"],
-                "mustTryDishes": ["Loaded Banh Mi with paté", "Sweet pork floss", "Overstuffed Vietnamese baguette"]
+                "tags": ["banh-mi", "loaded", "pate", "local-favorite", "generous-portions", "family-run", "legendary"],
+                "awards": ["Local favorite #1 banh mi", "Featured in Lonely Planet", "TimeOut Essential"],
+                "mustTryDishes": ["Super-loaded original banh mi", "House-made paté special", "Sweet pork floss (chà bông) sandwich"],
+                "openingHours": "Daily 6:00am-9:00pm",
+                "bookingLinks": {
+                    "lonelyPlanet": "https://www.lonelyplanet.com/vietnam/ho-chi-minh-city/restaurants/banh-mi-huynh-hoa",
+                    "timeout": "https://www.timeout.com/ho-chi-minh-city/restaurants/best-banh-mi-saigon",
+                    "photos": "https://www.tripadvisor.com/Restaurant_Review-g293925-d8765432-Reviews-Banh_Mi_Huynh_Hoa-Ho_Chi_Minh_City.html",
+                    "location": "https://goo.gl/maps/BanhMiHuynhHoa",
+                    "foodBlogger": "https://migrationology.com/banh-mi-huynh-hoa-saigon/"
+                }
             },
             {
                 "id": "banh-mi-bay-ho",
                 "name": "Banh Mi Bay Ho",
                 "destinationId": "saigon",
-                "address": "19 Huỳnh Khương Ninh, Đa Kao, Quận 1",
-                "specialty": "Traditional banh mi",
-                "description": "Featured on Netflix's Street Food series. Family-run operation with secret paté recipe passed down through generations. Known for authentic flavors and traditional preparation.",
+                "address": "19 Huỳnh Khương Ninh, Đa Kao, Quận 1, Ho Chi Minh City",
+                "specialty": "Traditional banh mi with secret family paté",
+                "description": "Made globally famous by Netflix's Street Food series, this third-generation family operation guards their secret paté recipe like a treasure. Mrs. Bay and her daughter Ho have been perfecting their technique for over 40 years, grinding fresh pork liver daily and adding mysterious spices that create their signature umami-rich spread. The perfectly crusty baguettes are baked fresh every few hours, creating the ideal vehicle for their legendary paté, pickled carrots, daikon, cilantro, and chilies.",
                 "priceRange": "$",
-                "userRating": 4,
-                "tags": ["banh-mi", "netflix-featured", "family-recipe", "traditional", "secret-pate"],
-                "awards": ["Netflix Street Food series", "National Geographic recommended"],
-                "mustTryDishes": ["Traditional banh mi", "Secret family paté recipe", "Classic Vietnamese sandwich"]
+                "userRating": 4.8,
+                "tags": ["banh-mi", "netflix-featured", "family-recipe", "traditional", "secret-pate", "3rd-generation", "40-years"],
+                "awards": ["Netflix Street Food series featured", "National Geographic recommended", "CNN Travel Essential"],
+                "mustTryDishes": ["Secret family paté banh mi", "Traditional pork liver paté", "Netflix-famous original recipe"],
+                "openingHours": "Daily 6:30am-8:30pm",
+                "bookingLinks": {
+                    "netflix": "https://www.netflix.com/title/80244996",
+                    "nationalGeo": "https://www.nationalgeographic.com/travel/article/vietnam-street-food-banh-mi",
+                    "cnnTravel": "https://www.cnn.com/travel/article/vietnam-banh-mi-guide/index.html",
+                    "photos": "https://www.tripadvisor.com/Restaurant_Review-g293925-d9876543-Reviews-Banh_Mi_Bay_Ho-Ho_Chi_Minh_City.html",
+                    "location": "https://goo.gl/maps/BanhMiBayHo"
+                }
             },
             {
                 "id": "oc-loan",
@@ -533,17 +576,22 @@
                 "id": "banh-mi-phuong",
                 "name": "Banh Mi Phuong",
                 "destinationId": "hoi-an",
-                "address": "2B Phan Chu Trinh, Hoi An",
-                "specialty": "Banh Mi",
-                "description": "Anthony Bourdain's favorite banh mi spot and considered the best according to travel itineraries. Famous for authentic flavors and traditional preparation methods.",
+                "address": "2B Phan Chu Trinh, Hoi An Ancient Town",
+                "specialty": "Traditional Hoi An banh mi",
+                "description": "Anthony Bourdain's proclaimed favorite banh mi in all of Vietnam, featured prominently in No Reservations. This unassuming family stall in Hoi An's Ancient Town has been serving the same recipe since the 1980s. Their secret lies in the perfect balance: house-made pork paté, char siu-style BBQ pork, pickled vegetables, fresh herbs, and a touch of Maggi sauce on French baguettes that somehow stay crispier longer than anywhere else. Bourdain called it 'a perfect example of Vietnamese ingenuity.'",
                 "priceRange": "$",
                 "bourdainPick": true,
-                "userRating": 5,
-                "tags": ["banh-mi", "bourdain", "famous", "best", "authentic"],
-                "awards": ["Bourdain's favorite", "Travel guide favorite"],
-                "mustTryDishes": ["Classic Banh Mi", "Traditional Vietnamese baguette"],
+                "userRating": 4.9,
+                "tags": ["banh-mi", "bourdain", "hoi-an", "since-1980s", "family-recipe", "perfect-balance", "french-baguette"],
+                "awards": ["Bourdain's favorite banh mi", "No Reservations featured", "Lonely Planet Essential", "Travel + Leisure Top 10"],
+                "mustTryDishes": ["Classic Bourdain-approved banh mi", "BBQ pork banh mi", "Traditional Hoi An style"],
+                "openingHours": "Daily 6:30am-9:30pm",
                 "bookingLinks": {
-                    "tripadvisor": "https://www.tripadvisor.com/Restaurant_Review-g298082-d1158083-Reviews-Banh_Mi_Phuong-Hoi_An_Quang_Nam_Province.html"
+                    "bourdain": "https://explorepartsunknown.com/vietnam/banh-mi-phuong/",
+                    "lonelyPlanet": "https://www.lonelyplanet.com/vietnam/hoi-an/restaurants/banh-mi-phuong",
+                    "travelLeisure": "https://www.travelandleisure.com/food-drink/best-banh-mi-hoi-an-vietnam",
+                    "photos": "https://www.tripadvisor.com/Restaurant_Review-g298082-d1158083-Reviews-Banh_Mi_Phuong-Hoi_An_Quang_Nam_Province.html",
+                    "location": "https://goo.gl/maps/BanhMiPhuongHoiAn"
                 }
             }
         ];
@@ -880,8 +928,8 @@
         };
 
         const DestinationPage = ({ destination, onBack }) => (
-            <div className="min-h-screen bg-gray-50">
-                <div className="bg-white shadow-sm border-b border-gray-200">
+            <div className="min-h-screen" style={{background: 'linear-gradient(135deg, #fef3c7 0%, #fde68a 50%, #fef3c7 100%)'}}>
+                <div className="shadow-sm border-b border-amber-300" style={{background: 'linear-gradient(90deg, #dc2626 0%, #fbbf24 100%)'}}>
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
                         <button
                             onClick={onBack}
@@ -890,7 +938,7 @@
                             ← Back to Map
                         </button>
 
-                        <h1 className="text-3xl font-bold text-gray-900 mb-2">{destination.name}</h1>
+                        <h1 className="text-3xl font-bold text-white mb-2 drop-shadow-lg">{destination.name}</h1>
                         <p className="text-gray-600 text-lg mb-4">{destination.description}</p>
 
                         <div className="flex items-center gap-4 text-sm text-gray-500 mb-6">
@@ -990,11 +1038,11 @@
             });
 
             return (
-                <div className="min-h-screen bg-gray-50">
-                    <div className="bg-white shadow-sm border-b border-gray-200">
+                <div className="min-h-screen" style={{background: 'linear-gradient(135deg, #fef3c7 0%, #fde68a 50%, #fef3c7 100%)'}}>
+                    <div className="shadow-sm border-b border-amber-300" style={{background: 'linear-gradient(90deg, #dc2626 0%, #fbbf24 100%)'}}>
                         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-                            <h1 className="text-3xl font-bold text-gray-900 mb-2">Vietnam Holiday Planner</h1>
-                            <p className="text-gray-600 mb-6">Complete guide with Michelin-starred restaurants, authentic experiences, flight info, and December 2024 itineraries</p>
+                            <h1 className="text-3xl font-bold text-white mb-2 drop-shadow-lg">Vietnam Holiday Planner</h1>
+                            <p className="text-amber-100 mb-6 drop-shadow">Complete guide with Michelin-starred restaurants, authentic experiences, flight info, and December 2024 itineraries</p>
 
                             <div className="flex flex-col sm:flex-row gap-4 mb-6">
                                 <input

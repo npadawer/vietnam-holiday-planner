@@ -1,25 +1,5 @@
 [build]
-builder = "dockerfile"
+builder = "nixpacks"
 
-[deploy]
-healthcheckPath = "/health"
-healthcheckTimeout = 30
-restartPolicyType = "on_failure"
-restartPolicyMaxRetries = 3
-
-[[services]]
-name = "vietnam-holiday-planner"
-
-[services.build]
-buildCommand = "npm install --legacy-peer-deps"
-
-[services.deploy]
+[deploy]  
 startCommand = "npm start"
-
-[[services.variables]]
-name = "NODE_ENV"
-value = "production"
-
-[[services.variables]]
-name = "PORT"
-value = "3000"

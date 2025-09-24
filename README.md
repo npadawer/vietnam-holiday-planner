@@ -21,12 +21,42 @@ An interactive web application for planning trips to Vietnam, featuring detailed
 ## 🚀 Quick Start
 
 ### Option 1: Instant Launch (Recommended)
-Simply open `final-enhanced-index.html` in your web browser - no installation required!
+Simply open `index.html` in your web browser - no installation required!
 
 ### Option 2: Development Setup
 ```bash
 npm install --legacy-peer-deps
 npm run dev
+```
+
+### Option 3: Production Deployment
+```bash
+# Auto-deploy to GitHub and Railway
+./deploy.sh
+
+# Manual deployment
+npm run deploy
+```
+
+## 🌐 Live Deployment
+
+This application is configured for automatic deployment to Railway with GitHub integration.
+
+### Auto-Deployment Setup:
+1. **GitHub Actions** - Automatic CI/CD pipeline on every push
+2. **Railway Integration** - Live deployment with custom domain support
+3. **Health Monitoring** - Built-in health checks and error recovery
+
+### Manual Deployment Commands:
+```bash
+# Quick auto-commit and deploy
+npm run auto-commit
+
+# Build and deploy to Railway
+npm run deploy
+
+# Local testing
+npm start
 ```
 
 ## 🌍 Destinations

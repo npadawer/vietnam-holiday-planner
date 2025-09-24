@@ -1,0 +1,59 @@
+[
+  {
+    "route": "USA to Hanoi (HAN)",
+    "airlines": ["Vietnam Airlines", "United Airlines", "Singapore Airlines", "Qatar Airways"],
+    "averagePriceEconomy": "$800-1500",
+    "averagePriceBusiness": "$3500-7500",
+    "duration": "18-24 hours (with stops)",
+    "directFlights": "From LAX and SFO via Vietnam Airlines",
+    "popularRoutes": [
+      "LAX → HAN via Vietnam Airlines (Direct)",
+      "SFO → HAN via Vietnam Airlines (Direct)",
+      "NYC → HAN via Singapore Airlines (1 stop)",
+      "NYC → HAN via Qatar Airways (1 stop)"
+    ],
+    "bookingLinks": {
+      "google": "https://www.google.com/travel/flights",
+      "kayak": "https://www.kayak.com/flights",
+      "expedia": "https://www.expedia.com/Flights",
+      "vietnamAirlines": "https://www.vietnamairlines.com"
+    }
+  },
+  {
+    "route": "USA to Ho Chi Minh City (SGN)",
+    "airlines": ["Vietnam Airlines", "United Airlines", "Singapore Airlines", "Qatar Airways"],
+    "averagePriceEconomy": "$700-1400",
+    "averagePriceBusiness": "$3000-6500",
+    "duration": "19-25 hours (with stops)",
+    "directFlights": "From LAX and SFO via Vietnam Airlines",
+    "popularRoutes": [
+      "LAX → SGN via Vietnam Airlines (Direct)",
+      "SFO → SGN via Vietnam Airlines (Direct)",
+      "NYC → SGN via Singapore Airlines (1 stop)",
+      "SEA → SGN via United Airlines (1 stop)"
+    ],
+    "bookingLinks": {
+      "google": "https://www.google.com/travel/flights",
+      "kayak": "https://www.kayak.com/flights",
+      "expedia": "https://www.expedia.com/Flights",
+      "vietnamAirlines": "https://www.vietnamairlines.com"
+    }
+  },
+  {
+    "route": "Domestic Vietnam (HAN ↔ SGN)",
+    "airlines": ["Vietnam Airlines", "Vietjet", "Bamboo Airways", "Vietravel Airlines"],
+    "averagePriceEconomy": "$50-150",
+    "averagePriceBusiness": "$150-350",
+    "duration": "2 hours 10 minutes",
+    "frequency": "Every 30-60 minutes",
+    "popularRoutes": [
+      "HAN → SGN (30+ daily flights)",
+      "SGN → HAN (30+ daily flights)"
+    ],
+    "bookingLinks": {
+      "vietnamAirlines": "https://www.vietnamairlines.com",
+      "vietjet": "https://www.vietjetair.com",
+      "bambooAirways": "https://www.bambooairways.com"
+    }
+  }
+]

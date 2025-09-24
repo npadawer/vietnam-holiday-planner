@@ -1,0 +1,170 @@
+[
+  {
+    "id": "bun-cha-hang-quat",
+    "name": "Bun Cha Hang Quat",
+    "destinationId": "hanoi",
+    "specialty": "Bun Cha (grilled pork with rice noodles)",
+    "description": "Hidden alley stall frequented by locals. Family-run operation with lightning speed service. Assembly line cooking with fermented rice noodles, fresh herbs, grilled pork belly & meatballs, crispy crab spring rolls. Lunch only, closes at 2pm.",
+    "priceRange": "$",
+    "userRating": 5,
+    "openingHours": "11:00-14:00",
+    "tags": ["local-favorite", "authentic", "lunch-only", "hidden-gem"]
+  },
+  {
+    "id": "pho-10-ly-quoc-su",
+    "name": "Pho 10 Ly Quoc Su",
+    "destinationId": "hanoi",
+    "address": "10 Ly Quoc Su Street",
+    "specialty": "Pho Bo (beef noodle soup)",
+    "description": "Famous pho spot serving soup with brisket, filet, and beef flank. Comes with fried dough sticks.",
+    "priceRange": "$",
+    "userRating": 4,
+    "tags": ["pho", "breakfast", "traditional"]
+  },
+  {
+    "id": "banh-cuon-nong-kim-thoa",
+    "name": "Banh Cuon Nong Kim Thoa",
+    "destinationId": "hanoi",
+    "specialty": "Banh Cuon (rice rolls)",
+    "description": "Famous family recipe for rice rolls with ground pork and mushrooms, served with fish sauce dip. Super local stall.",
+    "priceRange": "$",
+    "bourdainPick": true,
+    "userRating": 5,
+    "tags": ["banh-cuon", "family-recipe", "local"]
+  },
+  {
+    "id": "banh-mi-hoi-an",
+    "name": "Banh Mi Hoi An",
+    "destinationId": "hanoi",
+    "specialty": "Hoi An Special Banh Mi",
+    "description": "Banh mi with stewed pork in Hoi An style",
+    "priceRange": "$",
+    "userRating": 4,
+    "tags": ["banh-mi", "street-food"]
+  },
+  {
+    "id": "bun-cha-huong-lien",
+    "name": "Bún Chả Hương Liên",
+    "destinationId": "hanoi",
+    "specialty": "Bun Cha",
+    "description": "Famous bun cha restaurant recommended by Anthony Bourdain",
+    "priceRange": "$",
+    "bourdainPick": true,
+    "userRating": 4,
+    "tags": ["bourdain", "bun-cha", "famous"]
+  },
+  {
+    "id": "quan-cat-ba",
+    "name": "Quan Cat Ba",
+    "destinationId": "cat-ba-island",
+    "specialty": "Grilled seafood",
+    "description": "Super fresh grilled squid and fish cakes right by the water",
+    "priceRange": "$$",
+    "userRating": 4,
+    "tags": ["seafood", "grilled", "waterfront"]
+  },
+  {
+    "id": "dong-ba-market-bun-bo-hue",
+    "name": "Dong Ba Market Bun Bo Hue Stall",
+    "destinationId": "hue",
+    "specialty": "Bun Bo Hue",
+    "description": "Authentic Bun Bo Hue (spicy beef noodle soup) served by elderly lady who provides multiple local dishes including rice cakes, dumplings, and Nem Lui (grilled pork on lemongrass stalks)",
+    "priceRange": "$",
+    "bourdainPick": true,
+    "userRating": 5,
+    "tags": ["bun-bo-hue", "market", "authentic", "bourdain"]
+  },
+  {
+    "id": "madame-thu",
+    "name": "Madame Thu Restaurant",
+    "destinationId": "hue",
+    "specialty": "Banh Loc (rice cakes in banana leaves)",
+    "description": "Traditional rice cakes and dumplings steamed in banana leaves",
+    "priceRange": "$$",
+    "userRating": 4,
+    "tags": ["traditional", "rice-cakes", "banana-leaves"]
+  },
+  {
+    "id": "banh-mi-phuong",
+    "name": "Banh Mi Phuong",
+    "destinationId": "hoi-an",
+    "specialty": "Banh Mi",
+    "description": "Anthony Bourdain's favorite banh mi spot and the best one according to the itinerary",
+    "priceRange": "$",
+    "bourdainPick": true,
+    "userRating": 5,
+    "tags": ["banh-mi", "bourdain", "famous", "best"]
+  },
+  {
+    "id": "long-com-ga",
+    "name": "Long Com Ga",
+    "destinationId": "hoi-an",
+    "specialty": "Com Ga (chicken rice)",
+    "description": "Chicken and rice dish with offal and congealed blood",
+    "priceRange": "$",
+    "userRating": 4,
+    "tags": ["com-ga", "traditional", "offal"]
+  },
+  {
+    "id": "hai-chien-cao-lau",
+    "name": "Hai Chiến Cao Lầu",
+    "destinationId": "hoi-an",
+    "specialty": "Cao Lầu",
+    "description": "Traditional Hoi An noodle dish mentioned in Bourdain's guide",
+    "priceRange": "$",
+    "bourdainPick": true,
+    "userRating": 4,
+    "tags": ["cao-lau", "hoi-an-specialty", "bourdain"]
+  },
+  {
+    "id": "bun-rieu-ganh",
+    "name": "Bun Rieu Ganh",
+    "destinationId": "saigon",
+    "specialty": "Bun Rieu (crab paste noodle soup)",
+    "description": "Family-run restaurant specializing in crab paste noodle soup with tofu, pork sausage, bean sprouts, served with shrimp paste/tamarind sauce. Cooked in massive cauldron with bold seafood flavors.",
+    "priceRange": "$",
+    "userRating": 5,
+    "tags": ["bun-rieu", "family-run", "seafood", "bold-flavors"]
+  },
+  {
+    "id": "banh-mi-huynh-hoa",
+    "name": "Banh Mi Huynh Hoa",
+    "destinationId": "saigon",
+    "specialty": "Loaded Banh Mi",
+    "description": "Popular with locals, serves the largest and most loaded banh mi with thick layer of paté and sweet pork floss",
+    "priceRange": "$",
+    "userRating": 5,
+    "tags": ["banh-mi", "loaded", "pate", "local-favorite"]
+  },
+  {
+    "id": "hot-vit-lon-kim-thao",
+    "name": "Hot Vit Lon Kim Thao",
+    "destinationId": "saigon",
+    "specialty": "Hot Vit Lon (Balut)",
+    "description": "Specialist in balut (17-day fertilized duck eggs) served with chili and fish dipping sauce. Owner has perfected the boiling process.",
+    "priceRange": "$",
+    "userRating": 4,
+    "tags": ["balut", "specialty", "duck-egg", "unique"]
+  },
+  {
+    "id": "quan-an-co-lieng",
+    "name": "Quan An Co Lieng",
+    "destinationId": "saigon",
+    "specialty": "Bo La Lot & Bun Thit Nuong",
+    "description": "Grilled seasoned beef wrapped in betel leaves and rice noodles with grilled pork",
+    "priceRange": "$$",
+    "userRating": 4,
+    "tags": ["bo-la-lot", "bun-thit-nuong", "grilled", "betel-leaves"]
+  },
+  {
+    "id": "the-lunch-lady",
+    "name": "The Lunch Lady (Nguyễn Thị Thành)",
+    "destinationId": "saigon",
+    "specialty": "Daily changing menu",
+    "description": "Famous street food vendor mentioned in Bourdain's guide",
+    "priceRange": "$",
+    "bourdainPick": true,
+    "userRating": 4,
+    "tags": ["street-food", "bourdain", "daily-menu"]
+  }
+]

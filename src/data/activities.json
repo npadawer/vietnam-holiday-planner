@@ -1,0 +1,234 @@
+[
+  {
+    "id": "old-quarter-walking",
+    "name": "Old Quarter Street Exploration",
+    "destinationId": "hanoi",
+    "type": "cultural",
+    "description": "Walk through narrow streets, visit Ta Hien Corner and Beer Street, explore traditional shop houses",
+    "duration": "3-4 hours",
+    "difficulty": "easy",
+    "cost": "Free",
+    "tips": ["Visit in evening for best atmosphere", "Try bia hoi (fresh beer)", "Bargain at street stalls"]
+  },
+  {
+    "id": "train-street-coffee",
+    "name": "Train Street Coffee Experience",
+    "destinationId": "hanoi",
+    "type": "cultural",
+    "description": "Enjoy coffee inches from active train tracks. Train runs every 2 hours. Since 2022, police guard access - wait at Tran Phu street barricade for shop keeper to motion you over",
+    "duration": "2-3 hours",
+    "difficulty": "moderate",
+    "cost": "$5-10",
+    "tips": ["Arrive 1 hour before train time", "Be prepared to be 'smuggled' in", "No actual enforcement seen", "Duck behind walls when police look"]
+  },
+  {
+    "id": "water-puppet-show",
+    "name": "Water Puppet Show",
+    "destinationId": "hanoi",
+    "type": "cultural",
+    "description": "Traditional Vietnamese art form with puppets performing on water",
+    "duration": "1 hour",
+    "difficulty": "easy",
+    "cost": "$10-15"
+  },
+  {
+    "id": "ha-giang-loop",
+    "name": "Ha Giang Loop Motorbike Tour",
+    "destinationId": "ha-giang",
+    "type": "adventure",
+    "description": "3-day motorbike tour through UNESCO Geopark with 17 ethnic groups. Most scenic route in Vietnam with limestone cliffs, rice terraces, and mountain villages",
+    "duration": "3 days",
+    "difficulty": "moderate",
+    "cost": "$80-120 per day",
+    "coordinates": [22.8025, 104.9784],
+    "tips": [
+      "Book small group tours (3 bikes vs 10-20)",
+      "Choose 'easy rider' option if not experienced",
+      "Weather can be foggy - pack warm clothes",
+      "Dinner includes 'happy water' (homemade liquor)",
+      "Homestays provide authentic local experience"
+    ]
+  },
+  {
+    "id": "dong-van-karst-plateau",
+    "name": "Dong Van Karst Plateau",
+    "destinationId": "ha-giang",
+    "type": "nature",
+    "description": "UNESCO Geopark with prehistoric ocean remnants from 380 million years ago. Highest human diversity in the world with 17 ethnic groups",
+    "duration": "Full day",
+    "difficulty": "easy",
+    "cost": "Included in loop tour"
+  },
+  {
+    "id": "heaven-gate-viewpoint",
+    "name": "Quan Ba Heaven Gate",
+    "destinationId": "ha-giang",
+    "type": "nature",
+    "description": "Spectacular mountain viewpoint, often foggy but breathtaking when clear",
+    "duration": "30 minutes",
+    "difficulty": "easy",
+    "cost": "Free"
+  },
+  {
+    "id": "cat-ba-national-park",
+    "name": "Cat Ba National Park",
+    "destinationId": "cat-ba-island",
+    "type": "nature",
+    "description": "Explore Hang Quan Hospital Cave (Vietnam War bomb-proof hospital), Dong Trung Trang Cave, and hike to Dinh Ngu Lam Peak",
+    "duration": "Full day",
+    "difficulty": "moderate",
+    "cost": "$10-15 entrance"
+  },
+  {
+    "id": "lan-ha-bay-cruise",
+    "name": "Lan Ha Bay Boat Cruise",
+    "destinationId": "cat-ba-island",
+    "type": "nature",
+    "description": "Luxury 3-deck boat cruise with kayaking through caves, limestone cliffs, floating fishing villages, and fresh seafood lunch",
+    "duration": "Full day",
+    "difficulty": "easy",
+    "cost": "$50-80",
+    "tips": ["Low season = smaller groups", "Fresh seafood prepared onboard", "Alternative to crowded Ha Long Bay"]
+  },
+  {
+    "id": "bai-dinh-pagoda",
+    "name": "Bai Dinh Pagoda",
+    "destinationId": "ninh-binh",
+    "type": "cultural",
+    "description": "Largest Buddhist temple complex in Vietnam with massive golden Buddha statues",
+    "duration": "3 hours",
+    "difficulty": "easy",
+    "cost": "$5 entrance"
+  },
+  {
+    "id": "hang-mua-viewpoint",
+    "name": "Hang Mua Pagoda Viewpoint",
+    "destinationId": "ninh-binh",
+    "type": "nature",
+    "description": "Steep 500-step climb to pagodas with sweeping sunset views of rice fields and limestone cliffs",
+    "duration": "2 hours",
+    "difficulty": "moderate",
+    "cost": "$3 entrance"
+  },
+  {
+    "id": "imperial-city-hue",
+    "name": "Imperial City (Citadel)",
+    "destinationId": "hue",
+    "type": "historical",
+    "description": "Vast walled ancient capital with temples, corridors, gardens, and royal crafts. UNESCO World Heritage site",
+    "duration": "Half day",
+    "difficulty": "easy",
+    "cost": "$15 entrance"
+  },
+  {
+    "id": "thien-mu-pagoda",
+    "name": "Thien Mu Pagoda",
+    "destinationId": "hue",
+    "type": "cultural",
+    "description": "Active Buddhist monastery where monk Thic Quang Duc lived before his 1963 protest. Sunset gathering spot with silky tofu and honey ginger sauce",
+    "duration": "1-2 hours",
+    "difficulty": "easy",
+    "cost": "Free"
+  },
+  {
+    "id": "tu-duc-mausoleum",
+    "name": "Mausoleum of Emperor Tu Duc",
+    "destinationId": "hue",
+    "type": "historical",
+    "description": "Large outdoor complex of tombs, temples and rivers filled with koi fish",
+    "duration": "2 hours",
+    "difficulty": "easy",
+    "cost": "$8 entrance"
+  },
+  {
+    "id": "hai-van-pass-motorbike",
+    "name": "Hai Van Pass Motorbike Ride",
+    "destinationId": "hue",
+    "type": "adventure",
+    "description": "Scenic 20km coastal mountain road from Hue to Hoi An. Featured on Top Gear. Includes stops at markets, waterfalls, and viewpoints",
+    "duration": "8 hours total",
+    "difficulty": "moderate",
+    "cost": "$40-60",
+    "tips": ["Book with Motorvina or similar", "Bags transported separately", "Includes waterfall swim stop", "Most difficult part is Da Nang traffic"]
+  },
+  {
+    "id": "hoi-an-cooking-class",
+    "name": "Cam Thanh Family Cooking Class",
+    "destinationId": "hoi-an",
+    "type": "food",
+    "description": "Market tour, basket boat experience, crab fishing, and hands-on cooking of spring rolls, papaya salad, clay pot fish, and banh xeo",
+    "duration": "6 hours",
+    "difficulty": "easy",
+    "cost": "$35-45"
+  },
+  {
+    "id": "basket-boat-tour",
+    "name": "Basket Boat Tour",
+    "destinationId": "hoi-an",
+    "type": "nature",
+    "description": "Round bamboo boats through coconut mangroves with crab fishing experience",
+    "duration": "45 minutes",
+    "difficulty": "easy",
+    "cost": "$10-15"
+  },
+  {
+    "id": "lantern-festival",
+    "name": "Full Moon Lantern Festival",
+    "destinationId": "hoi-an",
+    "type": "cultural",
+    "description": "Monthly festival where city dims lights, only paper lanterns shine. Riverboat rides and lantern releases to honor deceased",
+    "duration": "2-3 hours",
+    "difficulty": "easy",
+    "cost": "$5-10 for lanterns"
+  },
+  {
+    "id": "marble-mountains",
+    "name": "Marble Mountains",
+    "destinationId": "da-nang",
+    "type": "cultural",
+    "description": "Steep cliffs with beautiful pagodas and caves housing Buddha statues and prayer altars. Surrounding shops sell marble statues and precious stones",
+    "duration": "2-3 hours",
+    "difficulty": "moderate",
+    "cost": "$5 entrance"
+  },
+  {
+    "id": "ba-na-hills",
+    "name": "Ba Na Hills Golden Bridge",
+    "destinationId": "da-nang",
+    "type": "cultural",
+    "description": "French-built amusement park with famous bridge held up by giant hands. Reclaimed by Vietnamese",
+    "duration": "Full day",
+    "difficulty": "easy",
+    "cost": "$30-40"
+  },
+  {
+    "id": "ben-thanh-market",
+    "name": "Ben Thanh Market",
+    "destinationId": "saigon",
+    "type": "cultural",
+    "description": "Famous central market for souvenirs, local food, and bargaining",
+    "duration": "2-3 hours",
+    "difficulty": "easy",
+    "cost": "Free entry"
+  },
+  {
+    "id": "saigon-rooftop-bars",
+    "name": "District 1 Rooftop Bar Crawl",
+    "destinationId": "saigon",
+    "type": "nightlife",
+    "description": "Sunset viewing from multiple rooftop bars in the central district",
+    "duration": "3-4 hours",
+    "difficulty": "easy",
+    "cost": "$20-40"
+  },
+  {
+    "id": "cu-chi-tunnels",
+    "name": "Cu Chi Tunnels",
+    "destinationId": "saigon",
+    "type": "historical",
+    "description": "Underground tunnel network used during Vietnam War",
+    "duration": "Half day",
+    "difficulty": "moderate",
+    "cost": "$15-25"
+  }
+]

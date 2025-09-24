@@ -1,0 +1,145 @@
+[
+  {
+    "id": "hanoi",
+    "name": "Hanoi",
+    "region": "north",
+    "coordinates": [21.0285, 105.8542],
+    "description": "Vietnam's capital city with rich history, French colonial architecture, and incredible street food scene",
+    "highlights": [
+      "Old Quarter with narrow streets and traditional shop houses",
+      "Train Street coffee experience",
+      "Water puppet shows",
+      "Imperial Citadel",
+      "Vietnamese Women's Museum",
+      "Bia Hoi Corner - famous beer street"
+    ],
+    "duration": "2-3 days",
+    "bestTimeToVisit": "October-April (cool and dry)",
+    "transportFromSaigon": "1.5 hour flight or 12-hour luxury train"
+  },
+  {
+    "id": "ha-giang",
+    "name": "Ha Giang",
+    "region": "north",
+    "coordinates": [22.8025, 104.9784],
+    "description": "Mountainous province with UNESCO Geopark, home to 17 ethnic groups and the famous Ha Giang Loop",
+    "highlights": [
+      "Ha Giang Loop - 3 day motorbike tour",
+      "Dong Van Karst Plateau UNESCO Geopark",
+      "Heaven's Gate viewpoint",
+      "Hmong King Palace",
+      "Lung Ho valley viewpoint",
+      "Traditional hemp textile villages"
+    ],
+    "duration": "3-4 days (including loop)",
+    "bestTimeToVisit": "September-November, March-May",
+    "transportFromHanoi": "8-hour luxury van ride"
+  },
+  {
+    "id": "cat-ba-island",
+    "name": "Cat Ba Island",
+    "region": "north",
+    "coordinates": [20.8167, 107.0500],
+    "description": "Largest island in Lan Ha Bay, alternative to Ha Long Bay with fewer crowds",
+    "highlights": [
+      "Cat Ba National Park",
+      "Cannon Fort viewpoint",
+      "Hang Quan Hospital Cave (Vietnam War site)",
+      "Dong Trung Trang Cave",
+      "Kayaking in Lan Ha Bay",
+      "Fresh seafood restaurants"
+    ],
+    "duration": "2-3 days",
+    "bestTimeToVisit": "March-May, September-November",
+    "transportFromHanoi": "3-hour bus + speedboat journey"
+  },
+  {
+    "id": "ninh-binh",
+    "name": "Ninh Binh",
+    "region": "north",
+    "coordinates": [20.2506, 105.9745],
+    "description": "Known as 'Halong Bay on Land' with limestone karsts, rice fields, and ancient temples",
+    "highlights": [
+      "Bai Dinh Pagoda - largest Buddhist temple complex",
+      "Hang Mua Pagoda viewpoint (500 steps climb)",
+      "Trang An scenic boat tours",
+      "Traditional BBQ goat meat",
+      "Rice field landscapes"
+    ],
+    "duration": "1-2 days",
+    "bestTimeToVisit": "October-April",
+    "transportFromHanoi": "2-hour bus ride"
+  },
+  {
+    "id": "hue",
+    "name": "Hue",
+    "region": "central",
+    "coordinates": [16.4637, 107.5909],
+    "description": "Former imperial capital with UNESCO World Heritage sites and royal cuisine",
+    "highlights": [
+      "Imperial City (Citadel) - ancient royal complex",
+      "Thien Mu Pagoda",
+      "Tomb of Emperor Tu Duc",
+      "Dong Ba Market for Bun Bo Hue soup",
+      "Perfume River boat trips",
+      "Traditional incense village"
+    ],
+    "duration": "1-2 days",
+    "bestTimeToVisit": "February-August",
+    "transportFromHanoi": "12-hour overnight train"
+  },
+  {
+    "id": "hoi-an",
+    "name": "Hoi An",
+    "region": "central",
+    "coordinates": [15.8801, 108.3380],
+    "description": "UNESCO World Heritage ancient trading port famous for lanterns, tailors, and cuisine",
+    "highlights": [
+      "Ancient Town with Japanese Covered Bridge",
+      "Full Moon Lantern Festival (monthly)",
+      "Custom tailor shops",
+      "Cooking classes and food tours",
+      "Basket boat tours in coconut forest",
+      "Night market along Thu Bon River"
+    ],
+    "duration": "2-3 days",
+    "bestTimeToVisit": "February-August",
+    "transportFromHue": "3.5-hour motorbike ride via Hai Van Pass"
+  },
+  {
+    "id": "da-nang",
+    "name": "Da Nang",
+    "region": "central",
+    "coordinates": [16.0544, 108.2022],
+    "description": "Modern coastal city with beaches, mountains, and gateway to Hoi An",
+    "highlights": [
+      "Marble Mountains with caves and pagodas",
+      "Ba Na Hills with Golden Bridge",
+      "My Khe Beach",
+      "Dragon Bridge fire show",
+      "Hai Van Pass scenic route"
+    ],
+    "duration": "1-2 days",
+    "bestTimeToVisit": "February-August",
+    "transportFromHoi-an": "45-minute drive"
+  },
+  {
+    "id": "saigon",
+    "name": "Ho Chi Minh City (Saigon)",
+    "region": "south",
+    "coordinates": [10.8231, 106.6297],
+    "description": "Vietnam's largest city with French colonial architecture, vibrant nightlife, and diverse food scene",
+    "highlights": [
+      "Ben Thanh Market",
+      "Notre-Dame Cathedral and Central Post Office",
+      "Reunification Palace",
+      "War Remnants Museum",
+      "Bui Vien backpacker district",
+      "Rooftop bars in District 1",
+      "Cu Chi Tunnels day trip"
+    ],
+    "duration": "2-3 days",
+    "bestTimeToVisit": "December-April",
+    "transportFromHanoi": "2-hour flight"
+  }
+]

@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vietnam Holiday Planner - Enhanced</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <style>
+        .line-clamp-3 {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        body {
+            background-color: #f9fafb;
+            color: #1f2937;
+        }
+        .highlight-link {
+            color: #2563eb;
+            cursor: pointer;
+            border-bottom: 1px dotted #2563eb;
+        }
+        .highlight-link:hover {
+            color: #1d4ed8;
+            border-bottom: 1px solid #1d4ed8;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        // Enhanced Data with comprehensive information
+        const destinations = [
+            {
+                "id": "hanoi",
+                "name": "Hanoi",
+                "region": "north",
+                "coordinates": [21.0285, 105.8542],
+                "description": "Vietnam's capital city with rich history, French colonial architecture, and incredible street food scene",
+                "highlights": [
+                    "Old Quarter with narrow streets and traditional shop houses",
+                    "Train Street coffee experience",
+                    "Water puppet shows",
+                    "Imperial Citadel",
+                    "Vietnamese Women's Museum",
+                    "Bia Hoi Corner - famous beer street"
+                ],
+                "duration": "2-3 days",
+                "bestTimeToVisit": "October-April (cool and dry)",
+                "transportFromSaigon": "1.5 hour flight or 12-hour luxury train",
+                "airports": {
+                    "main": "Noi Bai International Airport (HAN)",
+                    "distanceFromCenter": "28km north of city center"
+                },
+                "flightInfo": {
+                    "fromUSA": "$800-1500 economy, $3500-7500 business",
+                    "domesticFromSGN": "$50-150, 2h 10min",
+                    "airlines": ["Vietnam Airlines", "United Airlines", "Singapore Airlines"]
+                }
+            },
+            {
+                "id": "ha-giang",
+                "name": "Ha Giang",
+                "region": "north",
+                "coordinates": [22.8025, 104.9784],
+                "description": "Mountainous province with UNESCO Geopark, home to 17 ethnic groups and the famous Ha Giang Loop",
+                "highlights": [
+                    "Ha Giang Loop - 3 day motorbike tour",
+                    "Dong Van Karst Plateau UNESCO Geopark",
+                    "Heaven's Gate viewpoint",
+                    "Hmong King Palace",
+                    "Lung Ho valley viewpoint",
+                    "Traditional hemp textile villages"
+                ],
+                "duration": "3-4 days (including loop)",
+                "bestTimeToVisit": "September-November, March-May",
+                "transportFromHanoi": "8-hour luxury van ride",
+                "tourProviders": [
+                    {
+                        "name": "Ha Giang Loop Tours",
+                        "url": "https://hagianglooptours.com/",
+                        "description": "3-day/3-night epic tours from Hanoi"
+                    },
+                    {
+                        "name": "Vision Travel",
+                        "url": "https://visiontravelagent.com/",
+                        "description": "Trusted local agency since 2013"
+                    },
+                    {
+                        "name": "GetYourGuide",
+                        "url": "https://www.getyourguide.com/ha-giang-l149376/",
+                        "description": "International booking platform"
+                    }
+                ]
+            },
+            {
+                "id": "cat-ba-island",
+                "name": "Cat Ba Island",
+                "region": "north",
+                "coordinates": [20.8167, 107.0500],
+                "description": "Largest island in Lan Ha Bay, alternative to Ha Long Bay with fewer crowds",
+                "highlights": [
+                    "Cat Ba National Park",
+                    "Cannon Fort viewpoint",
+                    "Hang Quan Hospital Cave (Vietnam War site)",
+                    "Dong Trung Trang Cave",
+                    "Kayaking in Lan Ha Bay",
+                    "Fresh seafood restaurants"
+                ],
+                "duration": "2-3 days",
+                "bestTimeToVisit": "March-May, September-November",
+                "transportFromHanoi": "3-hour bus + speedboat journey",
+                "tourProviders": [
+                    {
+                        "name": "Cat Ba Express",
+                        "url": "https://catbaexpress.com/",
+                        "description": "2-day tours with hotel accommodation"
+                    }
+                ]
+            },
+            {
+                "id": "hoi-an",
+                "name": "Hoi An",
+                "region": "central",
+                "coordinates": [15.8801, 108.3380],
+                "description": "UNESCO World Heritage ancient trading port famous for lanterns, tailors, and cuisine",
+                "highlights": [
+                    "Ancient Town with Japanese Covered Bridge",
+                    "Full Moon Lantern Festival (monthly)",
+                    "Custom tailor shops",
+                    "Cooking classes and food tours",
+                    "Basket boat tours in coconut forest",
+                    "Night market along Thu Bon River"
+                ],
+                "duration": "2-3 days",
+                "bestTimeToVisit": "February-August",
+                "transportFromHue": "3.5-hour motorbike ride via Hai Van Pass",
+                "airports": {
+                    "main": "Da Nang Airport (DAD)",
+                    "distanceFromCenter": "30km from Hoi An"
+                }
+            },
+            {
+                "id": "saigon",
+                "name": "Ho Chi Minh City (Saigon)",
+                "region": "south",
+                "coordinates": [10.8231, 106.6297],
+                "description": "Vietnam's largest city with French colonial architecture, vibrant nightlife, and diverse food scene",
+                "highlights": [
+                    "Ben Thanh Market",
+                    "Notre-Dame Cathedral and Central Post Office",
+                    "Reunification Palace",
+                    "War Remnants Museum",
+                    "Bui Vien backpacker district",
+                    "Rooftop bars in District 1",
+                    "Cu Chi Tunnels day trip"
+                ],
+                "duration": "2-3 days",
+                "bestTimeToVisit": "December-April",
+                "transportFromHanoi": "2-hour flight",
+                "airports": {
+                    "main": "Tan Son Nhat International Airport (SGN)",
+                    "distanceFromCenter": "8km from city center"
+                },
+                "flightInfo": {
+                    "fromUSA": "$700-1400 economy, $3000-6500 business",
+                    "domesticFromHAN": "$50-150, 2h 10min",
+                    "airlines": ["Vietnam Airlines", "Vietjet", "Bamboo Airways"]
+                }
+            }
+        ];
+
+        const enhancedRestaurants = [
+            {
+                "id": "bun-cha-huong-lien",
+                "name": "Bún Chả Hương Liên",
+                "destinationId": "hanoi",
+                "address": "24 Lê Văn Hưu, Hai Bà Trưng, Hanoi",
+                "specialty": "Bun Cha",
+                "description": "Famous 'Bun Cha Obama' restaurant where Anthony Bourdain hosted former US President Obama for Parts Unknown. Traditional grilled pork with rice noodles in aromatic broth.",
+                "priceRange": "$",
+                "bourdainPick": true,
+                "userRating": 4,
+                "tags": ["bourdain", "bun-cha", "famous", "obama", "celebrity"],
+                "awards": ["Featured on Bourdain's Parts Unknown"],
+                "mustTryDishes": ["Classic Bun Cha", "Grilled pork patties", "Rice vermicelli"],
+                "bookingLinks": {
+                    "tripadvisor": "https://www.tripadvisor.com/Restaurant_Review-g293924-d1158167-Reviews-Bun_Cha_Huong_Lien-Hanoi.html",
+                    "google": "https://www.google.com/search?q=Bun+Cha+Huong+Lien+Hanoi+restaurant"
+                }
+            },
+            {
+                "id": "pho-gia-truyen-bat-dan",
+                "name": "Phở Gia Truyền Bát Đàn",
+                "destinationId": "hanoi",
+                "address": "49 Bát Đàn, Hoàn Kiếm, Hanoi",
+                "specialty": "Pho Bo (beef noodle soup)",
+                "description": "Considered the best pho in Hanoi with perfect balance of richness and delicacy. Starts selling at 6am and sells out quickly. Only serves pho tai (medium rare beef) and pho chin (well-cooked beef).",
+                "priceRange": "$",
+                "userRating": 5,
+                "openingHours": "06:00-10:00 (until sold out)",
+                "tags": ["pho", "breakfast", "traditional", "early-bird", "legendary"],
+                "awards": ["Eater recommended", "Local legend"],
+                "mustTryDishes": ["Pho Tai (medium rare beef)", "Pho Chin (well-cooked beef)", "Banh Quay (fried breadsticks)"]
+            },
+            {
+                "id": "gia-restaurant",
+                "name": "Gia",
+                "destinationId": "hanoi",
+                "specialty": "Contemporary Vietnamese",
+                "description": "One Michelin Star restaurant (retained 2025). Elegant contemporary Vietnamese cuisine with refined techniques and local ingredients.",
+                "priceRange": "$$$",
+                "userRating": 5,
+                "tags": ["michelin-star", "fine-dining", "contemporary", "vietnamese"],
+                "awards": ["Michelin One Star 2025"],
+                "mustTryDishes": ["Tasting menu featuring Vietnamese classics", "Seasonal specialties"],
+                "bookingLinks": {
+                    "michelin": "https://guide.michelin.com/vn/en/hanoi/restaurant/gia"
+                }
+            },
+            {
+                "id": "anan-saigon",
+                "name": "Ănăn Saigon",
+                "destinationId": "saigon",
+                "specialty": "Modern Vietnamese",
+                "description": "One Michelin Star restaurant. Contemporary Vietnamese cuisine with creative presentations using traditional techniques with modern flair.",
+                "priceRange": "$$$",
+                "userRating": 5,
+                "tags": ["michelin-star", "modern-vietnamese", "fine-dining", "creative"],
+                "awards": ["Michelin One Star 2025"],
+                "mustTryDishes": ["Modern Vietnamese tasting menu", "Creative interpretations"],
+                "bookingLinks": {
+                    "michelin": "https://guide.michelin.com/vn/en/ho-chi-minh/restaurant/anan-saigon"
+                }
+            },
+            {
+                "id": "banh-mi-phuong",
+                "name": "Banh Mi Phuong",
+                "destinationId": "hoi-an",
+                "address": "2B Phan Chu Trinh, Hoi An",
+                "specialty": "Banh Mi",
+                "description": "Anthony Bourdain's favorite banh mi spot and considered the best according to travel itineraries. Famous for authentic flavors and traditional preparation methods.",
+                "priceRange": "$",
+                "bourdainPick": true,
+                "userRating": 5,
+                "tags": ["banh-mi", "bourdain", "famous", "best", "authentic"],
+                "awards": ["Bourdain's favorite", "Travel guide favorite"],
+                "mustTryDishes": ["Classic Banh Mi", "Traditional Vietnamese baguette"],
+                "bookingLinks": {
+                    "tripadvisor": "https://www.tripadvisor.com/Restaurant_Review-g298082-d1158083-Reviews-Banh_Mi_Phuong-Hoi_An_Quang_Nam_Province.html"
+                }
+            }
+        ];
+
+        const flightBookingLinks = {
+            "google": "https://www.google.com/travel/flights",
+            "kayak": "https://www.kayak.com/flights",
+            "expedia": "https://www.expedia.com/Flights",
+            "vietnamAirlines": "https://www.vietnamairlines.com",
+            "vietjet": "https://www.vietjetair.com",
+            "skyscanner": "https://www.skyscanner.com"
+        };
+
+        const regionColors = {
+            north: '#10B981',
+            central: '#F59E0B',
+            south: '#EF4444'
+        };
+
+        // Helper function to create Google search links
+        const createGoogleSearchLink = (query) => {
+            const encodedQuery = encodeURIComponent(query + " Vietnam travel");
+            return `https://www.google.com/search?q=${encodedQuery}`;
+        };
+
+        // Components
+        const ClickableHighlight = ({ highlight }) => (
+            <a
+                href={createGoogleSearchLink(highlight)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="highlight-link"
+            >
+                {highlight}
+            </a>
+        );
+
+        const FlightInfoCard = ({ destination }) => {
+            if (!destination.flightInfo && !destination.airports) return null;
+
+            return (
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mt-4">
+                    <h3 className="font-semibold text-blue-900 mb-3 flex items-center gap-2">
+                        ✈️ Flight Information
+                    </h3>
+
+                    {destination.airports && (
+                        <div className="mb-3">
+                            <p className="text-sm text-blue-800">
+                                <strong>Airport:</strong> {destination.airports.main}
+                            </p>
+                            <p className="text-sm text-blue-700">
+                                📍 {destination.airports.distanceFromCenter}
+                            </p>
+                        </div>
+                    )}
+
+                    {destination.flightInfo && (
+                        <div className="space-y-2">
+                            <p className="text-sm text-blue-800">
+                                <strong>From USA:</strong> {destination.flightInfo.fromUSA}
+                            </p>
+                            {destination.flightInfo.domesticFromSGN && (
+                                <p className="text-sm text-blue-800">
+                                    <strong>From Saigon:</strong> {destination.flightInfo.domesticFromSGN}
+                                </p>
+                            )}
+                            {destination.flightInfo.domesticFromHAN && (
+                                <p className="text-sm text-blue-800">
+                                    <strong>From Hanoi:</strong> {destination.flightInfo.domesticFromHAN}
+                                </p>
+                            )}
+                            <div className="flex flex-wrap gap-2 mt-3">
+                                {Object.entries(flightBookingLinks).map(([name, url]) => (
+                                    <a
+                                        key={name}
+                                        href={url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded hover:bg-blue-200"
+                                    >
+                                        {name}
+                                    </a>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+        };
+
+        const TourProvidersCard = ({ destination }) => {
+            if (!destination.tourProviders) return null;
+
+            return (
+                <div className="bg-green-50 border border-green-200 rounded-lg p-4 mt-4">
+                    <h3 className="font-semibold text-green-900 mb-3 flex items-center gap-2">
+                        🎯 Tour Providers
+                    </h3>
+                    <div className="space-y-3">
+                        {destination.tourProviders.map((provider, index) => (
+                            <div key={index} className="border-b border-green-100 pb-2 last:border-b-0">
+                                <a
+                                    href={provider.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="font-medium text-green-800 hover:text-green-900"
+                                >
+                                    {provider.name} ↗
+                                </a>
+                                <p className="text-sm text-green-700">{provider.description}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+        };
+
+        const EnhancedRestaurantCard = ({ restaurant }) => (
+            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-4">
+                <div className="flex items-start justify-between mb-3">
+                    <div>
+                        <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
+                            {restaurant.name}
+                            {restaurant.bourdainPick && (
+                                <span className="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded-full font-medium">
+                                    Bourdain's Pick
+                                </span>
+                            )}
+                            {restaurant.awards?.includes("Michelin One Star 2025") && (
+                                <span className="bg-red-100 text-red-800 text-xs px-2 py-1 rounded-full font-medium">
+                                    ⭐ Michelin Star
+                                </span>
+                            )}
+                        </h3>
+                        <p className="text-blue-600 font-medium">{restaurant.specialty}</p>
+                        {restaurant.address && (
+                            <p className="text-sm text-gray-500 mt-1">📍 {restaurant.address}</p>
+                        )}
+                    </div>
+                    <div className="text-right">
+                        <div className="text-lg font-bold text-green-600">{restaurant.priceRange}</div>
+                        {restaurant.userRating && (
+                            <div className="flex items-center gap-1 mt-1">
+                                <span className="text-yellow-400">★</span>
+                                <span className="text-sm font-medium">{restaurant.userRating}/5</span>
+                            </div>
+                        )}
+                    </div>
+                </div>
+
+                <p className="text-gray-700 mb-4">{restaurant.description}</p>
+
+                {restaurant.mustTryDishes && (
+                    <div className="mb-4">
+                        <h4 className="font-medium text-gray-800 mb-2">Must Try Dishes:</h4>
+                        <div className="flex flex-wrap gap-2">
+                            {restaurant.mustTryDishes.map((dish, index) => (
+                                <span key={index} className="bg-orange-100 text-orange-800 text-xs px-2 py-1 rounded-full">
+                                    {dish}
+                                </span>
+                            ))}
+                        </div>
+                    </div>
+                )}
+
+                <div className="flex items-center justify-between">
+                    <div className="flex flex-wrap gap-2">
+                        {restaurant.tags?.map((tag, index) => (
+                            <span key={index} className="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-full">
+                                {tag.replace('-', ' ')}
+                            </span>
+                        ))}
+                    </div>
+
+                    {restaurant.bookingLinks && (
+                        <div className="flex gap-2">
+                            {Object.entries(restaurant.bookingLinks).map(([platform, url]) => (
+                                <a
+                                    key={platform}
+                                    href={url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-xs bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
+                                >
+                                    {platform} ↗
+                                </a>
+                            ))}
+                        </div>
+                    )}
+                </div>
+
+                {restaurant.openingHours && (
+                    <p className="text-sm text-gray-500 mt-2">
+                        🕒 {restaurant.openingHours}
+                    </p>
+                )}
+            </div>
+        );
+
+        const VietnamMap = ({ destinations, onDestinationClick }) => {
+            useEffect(() => {
+                const map = L.map('map').setView([16.0, 106.0], 6);
+
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '© OpenStreetMap contributors'
+                }).addTo(map);
+
+                destinations.forEach(destination => {
+                    const marker = L.marker(destination.coordinates)
+                        .addTo(map)
+                        .bindPopup(`
+                            <div class="text-center">
+                                <h3 class="font-bold text-lg">${destination.name}</h3>
+                                <p class="text-sm text-gray-600 mt-1">${destination.description}</p>
+                                <div class="mt-2">
+                                    <span class="inline-block px-2 py-1 rounded-full text-xs font-medium text-white"
+                                          style="background-color: ${regionColors[destination.region]}">
+                                        ${destination.region.toUpperCase()}
+                                    </span>
+                                </div>
+                                <p class="text-xs text-gray-500 mt-2">📅 ${destination.duration}</p>
+                                ${destination.airports ? `<p class="text-xs text-gray-500">✈️ ${destination.airports.main}</p>` : ''}
+                            </div>
+                        `);
+
+                    marker.on('click', () => onDestinationClick(destination));
+                });
+
+                return () => {
+                    map.remove();
+                };
+            }, [destinations]);
+
+            return (
+                <div>
+                    <div className="mb-4 flex gap-4 text-sm">
+                        <div className="flex items-center gap-2">
+                            <div className="w-4 h-4 rounded-full bg-green-500"></div>
+                            <span>North Vietnam</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <div className="w-4 h-4 rounded-full bg-yellow-500"></div>
+                            <span>Central Vietnam</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <div className="w-4 h-4 rounded-full bg-red-500"></div>
+                            <span>South Vietnam</span>
+                        </div>
+                    </div>
+                    <div id="map" style={{ height: '500px', width: '100%' }} className="rounded-lg shadow-lg"></div>
+                </div>
+            );
+        };
+
+        const DestinationPage = ({ destination, onBack }) => (
+            <div className="min-h-screen bg-gray-50">
+                <div className="bg-white shadow-sm border-b border-gray-200">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                        <button
+                            onClick={onBack}
+                            className="flex items-center gap-2 text-blue-600 hover:text-blue-800 mb-4 transition-colors"
+                        >
+                            ← Back to Map
+                        </button>
+
+                        <h1 className="text-3xl font-bold text-gray-900 mb-2">{destination.name}</h1>
+                        <p className="text-gray-600 text-lg mb-4">{destination.description}</p>
+
+                        <div className="flex items-center gap-4 text-sm text-gray-500 mb-6">
+                            <span
+                                className="px-3 py-1 rounded-full text-xs font-medium text-white"
+                                style={{backgroundColor: regionColors[destination.region]}}
+                            >
+                                {destination.region.toUpperCase()} VIETNAM
+                            </span>
+                            <span>📅 {destination.duration}</span>
+                            <span>🌡️ {destination.bestTimeToVisit}</span>
+                            <span>📍 {destination.coordinates[0].toFixed(2)}, {destination.coordinates[1].toFixed(2)}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        <div className="lg:col-span-2 space-y-6">
+                            {/* Highlights */}
+                            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                                <h2 className="text-xl font-semibold text-gray-900 mb-4">Highlights</h2>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    {destination.highlights.map((highlight, index) => (
+                                        <div key={index} className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
+                                            <span className="text-blue-500 mt-1">•</span>
+                                            <ClickableHighlight highlight={highlight} />
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Food Recommendations */}
+                            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                                <h2 className="text-xl font-semibold text-gray-900 mb-4">🍜 Food Recommendations</h2>
+                                {enhancedRestaurants.filter(r => r.destinationId === destination.id).map(restaurant => (
+                                    <EnhancedRestaurantCard key={restaurant.id} restaurant={restaurant} />
+                                ))}
+                            </div>
+                        </div>
+
+                        <div className="space-y-6">
+                            {/* Flight Information */}
+                            <FlightInfoCard destination={destination} />
+
+                            {/* Tour Providers */}
+                            <TourProvidersCard destination={destination} />
+
+                            {/* Transportation */}
+                            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                                <h2 className="text-xl font-semibold text-gray-900 mb-4">🚌 Getting There</h2>
+                                <div className="space-y-3">
+                                    {destination.transportFromHanoi && (
+                                        <div className="flex items-start gap-3">
+                                            <span className="font-medium text-gray-700">From Hanoi:</span>
+                                            <span className="text-gray-600">{destination.transportFromHanoi}</span>
+                                        </div>
+                                    )}
+                                    {destination.transportFromSaigon && (
+                                        <div className="flex items-start gap-3">
+                                            <span className="font-medium text-gray-700">From Saigon:</span>
+                                            <span className="text-gray-600">{destination.transportFromSaigon}</span>
+                                        </div>
+                                    )}
+                                    {destination.transportFromHue && (
+                                        <div className="flex items-start gap-3">
+                                            <span className="font-medium text-gray-700">From Hue:</span>
+                                            <span className="text-gray-600">{destination.transportFromHue}</span>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+
+        const HomePage = ({ destinations, onDestinationSelect }) => {
+            const [viewMode, setViewMode] = useState('map');
+            const [searchTerm, setSearchTerm] = useState('');
+            const [selectedRegion, setSelectedRegion] = useState('all');
+
+            const filteredDestinations = destinations.filter(destination => {
+                const matchesSearch = destination.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                                     destination.description.toLowerCase().includes(searchTerm.toLowerCase());
+                const matchesRegion = selectedRegion === 'all' || destination.region === selectedRegion;
+                return matchesSearch && matchesRegion;
+            });
+
+            return (
+                <div className="min-h-screen bg-gray-50">
+                    <div className="bg-white shadow-sm border-b border-gray-200">
+                        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                            <h1 className="text-3xl font-bold text-gray-900 mb-2">Vietnam Holiday Planner</h1>
+                            <p className="text-gray-600 mb-6">Discover the best destinations, Michelin-starred restaurants, and authentic experiences in Vietnam</p>
+
+                            <div className="flex flex-col sm:flex-row gap-4 mb-6">
+                                <input
+                                    type="text"
+                                    placeholder="Search destinations..."
+                                    value={searchTerm}
+                                    onChange={(e) => setSearchTerm(e.target.value)}
+                                    className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                                />
+                                <select
+                                    value={selectedRegion}
+                                    onChange={(e) => setSelectedRegion(e.target.value)}
+                                    className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                                >
+                                    <option value="all">All Regions</option>
+                                    <option value="north">North Vietnam</option>
+                                    <option value="central">Central Vietnam</option>
+                                    <option value="south">South Vietnam</option>
+                                </select>
+                                <div className="flex bg-gray-100 rounded-lg p-1">
+                                    <button
+                                        onClick={() => setViewMode('map')}
+                                        className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                                            viewMode === 'map' ? 'bg-white text-blue-600' : 'text-gray-600'
+                                        }`}
+                                    >
+                                        🗺️ Map
+                                    </button>
+                                    <button
+                                        onClick={() => setViewMode('grid')}
+                                        className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                                            viewMode === 'grid' ? 'bg-white text-blue-600' : 'text-gray-600'
+                                        }`}
+                                    >
+                                        📋 Grid
+                                    </button>
+                                </div>
+                            </div>
+
+                            {/* Quick Flight Links */}
+                            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+                                <h3 className="font-semibold text-blue-900 mb-2">✈️ Book Flights to Vietnam</h3>
+                                <div className="flex flex-wrap gap-2">
+                                    {Object.entries(flightBookingLinks).map(([name, url]) => (
+                                        <a
+                                            key={name}
+                                            href={url}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-sm bg-blue-100 text-blue-700 px-3 py-1 rounded hover:bg-blue-200"
+                                        >
+                                            {name} ↗
+                                        </a>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                        {viewMode === 'map' ? (
+                            <VietnamMap
+                                destinations={filteredDestinations}
+                                onDestinationClick={onDestinationSelect}
+                            />
+                        ) : (
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                {filteredDestinations.map((destination) => (
+                                    <div key={destination.id} className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow cursor-pointer border border-gray-200 p-6"
+                                         onClick={() => onDestinationSelect(destination)}>
+                                        <div className="flex items-start justify-between mb-3">
+                                            <h3 className="text-xl font-bold text-gray-800">{destination.name}</h3>
+                                            <span
+                                                className="px-3 py-1 rounded-full text-xs font-medium text-white"
+                                                style={{backgroundColor: regionColors[destination.region]}}
+                                            >
+                                                {destination.region.toUpperCase()}
+                                            </span>
+                                        </div>
+
+                                        <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+                                            {destination.description}
+                                        </p>
+
+                                        <div className="space-y-2">
+                                            <h4 className="font-semibold text-sm text-gray-700">Highlights:</h4>
+                                            <ul className="text-xs text-gray-600 space-y-1">
+                                                {destination.highlights.slice(0, 3).map((highlight, index) => (
+                                                    <li key={index} className="flex items-start gap-2">
+                                                        <span className="text-blue-500 mt-1">•</span>
+                                                        <span>{highlight}</span>
+                                                    </li>
+                                                ))}
+                                                {destination.highlights.length > 3 && (
+                                                    <li className="text-blue-500 text-xs font-medium">
+                                                        +{destination.highlights.length - 3} more highlights
+                                                    </li>
+                                                )}
+                                            </ul>
+                                        </div>
+
+                                        <div className="mt-4 pt-4 border-t border-gray-100">
+                                            <div className="text-sm text-gray-500 mb-2">
+                                                📅 {destination.duration} • 🌡️ {destination.bestTimeToVisit}
+                                            </div>
+                                            {destination.airports && (
+                                                <div className="text-xs text-gray-500 mb-2">
+                                                    ✈️ {destination.airports.main}
+                                                </div>
+                                            )}
+                                            <button className="w-full px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors text-sm font-medium">
+                                                Explore Details
+                                            </button>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+                </div>
+            );
+        };
+
+        // Main App
+        const App = () => {
+            const [selectedDestination, setSelectedDestination] = useState(null);
+
+            return selectedDestination ? (
+                <DestinationPage
+                    destination={selectedDestination}
+                    onBack={() => setSelectedDestination(null)}
+                />
+            ) : (
+                <HomePage
+                    destinations={destinations}
+                    onDestinationSelect={setSelectedDestination}
+                />
+            );
+        };
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>

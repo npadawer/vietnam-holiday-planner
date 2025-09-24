@@ -1,0 +1,152 @@
+[
+  {
+    "id": "hanoi-media-hotel",
+    "name": "Hanoi Media Hotel",
+    "destinationId": "hanoi",
+    "type": "hotel",
+    "description": "Located in Old Quarter, walking distance to major attractions",
+    "priceRange": "$$",
+    "location": "Old Quarter"
+  },
+  {
+    "id": "little-charm-hostel",
+    "name": "Little Charm Hostel",
+    "destinationId": "hanoi",
+    "type": "hostel",
+    "description": "Backpacker friendly hostel in central Hanoi",
+    "priceRange": "$",
+    "location": "Central Hanoi"
+  },
+  {
+    "id": "hanoi-airbnb-1",
+    "name": "Hanoi Central Apartment",
+    "destinationId": "hanoi",
+    "type": "airbnb",
+    "url": "https://www.airbnb.com/l/lVYsEX3I",
+    "description": "Central location apartment",
+    "priceRange": "$$"
+  },
+  {
+    "id": "hanoi-airbnb-2",
+    "name": "Hanoi Old Quarter Stay",
+    "destinationId": "hanoi",
+    "type": "airbnb",
+    "url": "https://www.airbnb.com/l/CbzshNeY",
+    "description": "Traditional Old Quarter accommodation",
+    "priceRange": "$$"
+  },
+  {
+    "id": "hanoi-airbnb-3",
+    "name": "Hanoi Modern Apartment",
+    "destinationId": "hanoi",
+    "type": "airbnb",
+    "url": "https://www.airbnb.com/l/48oZJI7D",
+    "description": "Modern apartment with amenities",
+    "priceRange": "$$$"
+  },
+  {
+    "id": "ha-giang-hostel",
+    "name": "Ha Giang Hostel",
+    "destinationId": "ha-giang",
+    "type": "hostel",
+    "description": "Base for Ha Giang Loop tours, bag storage available during 3-day trips",
+    "priceRange": "$",
+    "location": "Ha Giang City"
+  },
+  {
+    "id": "hoang-van-hotel",
+    "name": "Hoang Van Hotel",
+    "destinationId": "ha-giang",
+    "type": "hotel",
+    "description": "Accommodation in Dong Van during Ha Giang Loop",
+    "priceRange": "$",
+    "location": "Dong Van"
+  },
+  {
+    "id": "du-gia-homestay",
+    "name": "Du Gia Cozy Homestay",
+    "destinationId": "ha-giang",
+    "type": "homestay",
+    "description": "Chilled homestay in valley with rice field views, local tea, billiards, and happy water at dinner",
+    "priceRange": "$",
+    "location": "Du Gia Valley"
+  },
+  {
+    "id": "sapa-airbnb-1",
+    "name": "Sapa Mountain View",
+    "destinationId": "ha-giang",
+    "type": "airbnb",
+    "url": "https://www.airbnb.com/l/XGAKTKj7",
+    "description": "Mountain views in Sapa region",
+    "priceRange": "$$"
+  },
+  {
+    "id": "sapa-airbnb-2",
+    "name": "Sapa Traditional Stay",
+    "destinationId": "ha-giang",
+    "type": "airbnb",
+    "url": "https://www.airbnb.com/l/KDXmX08E",
+    "description": "Traditional accommodation in Sapa",
+    "priceRange": "$"
+  },
+  {
+    "id": "cat-ba-pod-hostel",
+    "name": "Cat Ba Pod Hostel",
+    "destinationId": "cat-ba-island",
+    "type": "hostel",
+    "description": "Modern pod-style hostel on Cat Ba Island",
+    "priceRange": "$"
+  },
+  {
+    "id": "cat-ba-airbnb-1",
+    "name": "Cat Ba Island Retreat",
+    "destinationId": "cat-ba-island",
+    "type": "airbnb",
+    "url": "https://www.airbnb.com/l/nlXPLHDH",
+    "description": "Island retreat accommodation",
+    "priceRange": "$$"
+  },
+  {
+    "id": "cat-ba-airbnb-2",
+    "name": "Cat Ba Bay View",
+    "destinationId": "cat-ba-island",
+    "type": "airbnb",
+    "url": "https://www.airbnb.com/l/89kNc5sB",
+    "description": "Bay view accommodation",
+    "priceRange": "$$$"
+  },
+  {
+    "id": "banana-hostel",
+    "name": "Banana Hostel",
+    "destinationId": "ninh-binh",
+    "type": "hostel",
+    "description": "Beautiful riverside location in Tam Coc. Pool area with emergency sleeping arrangements for early arrivals",
+    "priceRange": "$",
+    "location": "Tam Coc"
+  },
+  {
+    "id": "amy-2-hostel",
+    "name": "Amy 2 Hostel",
+    "destinationId": "hue",
+    "type": "hostel",
+    "description": "Private rooms available, motorbike rental on-site",
+    "priceRange": "$"
+  },
+  {
+    "id": "backhome-hostel",
+    "name": "Backhome Hostel",
+    "destinationId": "hoi-an",
+    "type": "hostel",
+    "description": "Central Hoi An location, cooking class bookings available",
+    "priceRange": "$"
+  },
+  {
+    "id": "cochin-zen-hotel",
+    "name": "Cochin Zen Hotel",
+    "destinationId": "saigon",
+    "type": "hotel",
+    "description": "Upscale hotel steps from Ben Thanh Market in District 1",
+    "priceRange": "$$$",
+    "location": "District 1"
+  }
+]

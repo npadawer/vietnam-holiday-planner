@@ -1,5 +1,5 @@
-# Use specific Node.js version to avoid Docker Hub auth issues
-FROM node:18.17.0-alpine
+# Use Ubuntu-based Node.js image which might work better with Railway
+FROM node:18-slim
 
 # Set working directory
 WORKDIR /app

@@ -796,15 +796,12 @@
                     "domesticFromHAN": "$50-150, 2h 10min",
                     "airlines": ["Vietnam Airlines", "Vietjet", "Bamboo Airways"]
                 }
-            }
-        ];
-
-        // Thailand Destinations - Enriched with full data points
-        const thailandDestinations = [
+            },
+            // Thailand Destinations - Integrated into main destinations array
             {
                 "id": "bangkok",
                 "name": "Bangkok",
-                "region": "central",
+                "region": "thailand",
                 "coordinates": [13.7563, 100.5018],
                 "description": "Thailand's capital megacity with incredible street food, vibrant nightlife, temples, and modern skyscrapers",
                 "highlights": [
@@ -893,7 +890,7 @@
             {
                 "id": "phuket",
                 "name": "Phuket",
-                "region": "south",
+                "region": "thailand",
                 "coordinates": [7.8804, 98.3923],
                 "description": "Thailand's largest island with stunning beaches, very westernized with large expat community including crypto/digital nomads",
                 "highlights": [
@@ -1006,7 +1003,7 @@
             {
                 "id": "kohSamui",
                 "name": "Koh Samui",
-                "region": "south",
+                "region": "thailand",
                 "coordinates": [9.5382, 100.0608],
                 "description": "Popular island paradise perfect for scuba diving and motorbike exploration, 30 minutes from Koh Phangan by ferry",
                 "highlights": [
@@ -1096,7 +1093,7 @@
             {
                 "id": "kohPhangan",
                 "name": "Koh Phangan",
-                "region": "south",
+                "region": "thailand",
                 "coordinates": [9.7439, 100.0358],
                 "description": "Famous for jungle festivals and Full Moon parties, 30 minutes from Koh Samui by ferry",
                 "highlights": [
@@ -1168,7 +1165,7 @@
             {
                 "id": "chiangMai",
                 "name": "Chiang Mai",
-                "region": "north",
+                "region": "thailand",
                 "coordinates": [18.7883, 98.9853],
                 "description": "Northern Thailand's cultural capital with mountains, nature, authentic culture - similar to Vietnam's Sapa but more developed",
                 "highlights": [
@@ -2317,7 +2314,7 @@
                                     align-items: center;
                                     justify-content: center;
                                 ">
-                                    ${destination.region === 'north' ? 'N' : destination.region === 'central' ? 'C' : 'S'}
+                                    ${destination.region === 'north' ? 'N' : destination.region === 'central' ? 'C' : destination.region === 'thailand' ? 'T' : 'S'}
                                 </div>
                             </div>
                         `,
@@ -2875,6 +2872,7 @@
                                     <option value="north">North Vietnam</option>
                                     <option value="central">Central Vietnam</option>
                                     <option value="south">South Vietnam</option>
+                                    <option value="thailand">🇹🇭 Thailand</option>
                                     <option value="favorites">❤️ Favorites Only</option>
                                 </select>
                                 <div className="flex bg-gray-100 rounded-lg p-1">

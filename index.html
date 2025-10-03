@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Enhanced Vietnam Holiday Planner with Vietnamese cultural design elements and animations">
-    <title>Vietnam Holiday Planner v2.5 - Downvote Feature + Country Filtering</title>
-    <!-- UPDATE: Added downvote/dislike functionality with filtering options v2.5 -->
+    <title>Vietnam Holiday Planner v2.6 - Fixed Koh Phangan + Downvote Feature</title>
+    <!-- UPDATE: Fixed Koh Phangan rendering issue + downvote functionality v2.6 -->
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -2914,7 +2914,24 @@
             );
         };
 
-        const DestinationPage = ({ destination, onBack }) => (
+        const DestinationPage = ({ destination, onBack }) => {
+            // Debug logging
+            console.log('DestinationPage rendering for:', destination);
+
+            if (!destination) {
+                return (
+                    <div className="min-h-screen flex items-center justify-center">
+                        <div className="text-center">
+                            <h1 className="text-2xl font-bold text-gray-800 mb-4">Destination not found</h1>
+                            <button onClick={onBack} className="text-blue-600 hover:text-blue-800">
+                                ← Back to Map
+                            </button>
+                        </div>
+                    </div>
+                );
+            }
+
+            return (
             <div className="min-h-screen" style={{background: 'linear-gradient(135deg, #fef3c7 0%, #fde68a 50%, #fef3c7 100%)'}}>
                 <div className="shadow-sm border-b border-amber-300" style={{background: 'linear-gradient(90deg, #dc2626 0%, #fbbf24 100%)'}}>
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
@@ -3016,7 +3033,8 @@
                     </div>
                 </div>
             </div>
-        );
+            );
+        };
 
         const HomePage = ({ destinations, onDestinationSelect }) => {
             const [viewMode, setViewMode] = useState('map');

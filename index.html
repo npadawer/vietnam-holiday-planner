@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Enhanced Vietnam Holiday Planner with Vietnamese cultural design elements and animations">
-    <title>Vietnam Holiday Planner v2.7 - Fixed Button Overlap Issue</title>
-    <!-- UPDATE: Fixed heart/downvote buttons overlapping with region labels v2.7 -->
+    <title>Vietnam Holiday Planner v2.8 - Cleaner Map Design</title>
+    <!-- UPDATE: Cleaned up map markers and routes for better readability v2.8 -->
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -2627,42 +2627,26 @@
                     return L.divIcon({
                         html: `
                             <div style="
-                                width: 40px;
-                                height: 40px;
-                                background: linear-gradient(135deg, #dc2626 0%, ${regionColor} 50%, #fbbf24 100%);
-                                border: 3px solid #dc2626;
+                                width: 24px;
+                                height: 24px;
+                                background: ${regionColor};
+                                border: 2px solid white;
                                 border-radius: 50%;
                                 display: flex;
                                 align-items: center;
                                 justify-content: center;
-                                font-size: 18px;
-                                box-shadow: 0 4px 8px rgba(220, 38, 38, 0.3);
+                                font-size: 11px;
+                                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
                                 position: relative;
                                 transform: translate(-50%, -50%);
                             ">
                                 ${icon}
-                                <div style="
-                                    position: absolute;
-                                    top: -8px;
-                                    right: -8px;
-                                    width: 16px;
-                                    height: 16px;
-                                    background: #fbbf24;
-                                    border: 2px solid #dc2626;
-                                    border-radius: 50%;
-                                    font-size: 10px;
-                                    display: flex;
-                                    align-items: center;
-                                    justify-content: center;
-                                ">
-                                    ${destination.region === 'north' ? 'N' : destination.region === 'central' ? 'C' : destination.region === 'thailand-north' ? 'TN' : destination.region === 'thailand-central' ? 'TC' : destination.region === 'thailand-south' ? 'TS' : 'S'}
-                                </div>
                             </div>
                         `,
                         className: 'custom-marker',
-                        iconSize: [40, 40],
-                        iconAnchor: [20, 20],
-                        popupAnchor: [0, -20]
+                        iconSize: [24, 24],
+                        iconAnchor: [12, 12],
+                        popupAnchor: [0, -12]
                     });
                 };
 
@@ -2750,8 +2734,8 @@
                             [fromDest.coordinates, toDest.coordinates],
                             {
                                 color: route.color,
-                                weight: route.weight,
-                                opacity: 0.7,
+                                weight: Math.max(2, route.weight - 2),
+                                opacity: 0.4,
                                 dashArray: route.dashArray || null
                             }
                         ).addTo(map);
@@ -2803,16 +2787,16 @@
                         // Enhanced hover effects
                         line.on('mouseover', function(e) {
                             this.setStyle({
-                                weight: route.weight + 2,
-                                opacity: 1.0,
+                                weight: Math.max(3, route.weight - 1),
+                                opacity: 0.7,
                                 color: route.color
                             });
                         });
 
                         line.on('mouseout', function(e) {
                             this.setStyle({
-                                weight: route.weight,
-                                opacity: 0.7,
+                                weight: Math.max(2, route.weight - 2),
+                                opacity: 0.4,
                                 color: route.color
                             });
                         });

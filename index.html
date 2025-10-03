@@ -2038,7 +2038,10 @@
         const regionColors = {
             north: '#10B981',
             central: '#F59E0B',
-            south: '#EF4444'
+            south: '#EF4444',
+            'thailand-north': '#8B5CF6',
+            'thailand-central': '#06B6D4',
+            'thailand-south': '#F97316'
         };
 
         // Helper function to create Google search links
@@ -2804,7 +2807,7 @@
                                 <div class="mt-2">
                                     <span class="inline-block px-2 py-1 rounded-full text-xs font-medium text-white"
                                           style="background: linear-gradient(45deg, #dc2626, ${regionColors[destination.region]}, #fbbf24);">
-                                        ${destination.region.toUpperCase()} VIETNAM
+                                        ${destination.region.startsWith('thailand-') ? destination.region.replace('thailand-', '').toUpperCase() + ' THAILAND' : destination.region.toUpperCase() + ' VIETNAM'}
                                     </span>
                                 </div>
                                 <div class="mt-2 text-xs text-gray-600">
@@ -2888,7 +2891,7 @@
                                 className="px-3 py-1 rounded-full text-xs font-medium text-white"
                                 style={{backgroundColor: regionColors[destination.region]}}
                             >
-                                {destination.region.toUpperCase()} VIETNAM
+                                {destination.region.startsWith('thailand-') ? destination.region.replace('thailand-', '').toUpperCase() + ' THAILAND' : destination.region.toUpperCase() + ' VIETNAM'}
                             </span>
                             <span>📅 {destination.duration}</span>
                             <span>🌡️ {destination.bestTimeToVisit}</span>
@@ -3285,7 +3288,7 @@
                                                 className="px-3 py-1 rounded-full text-xs font-medium text-white"
                                                 style={{backgroundColor: regionColors[destination.region]}}
                                             >
-                                                {destination.region.toUpperCase()}
+                                                {destination.region.startsWith('thailand-') ? destination.region.replace('thailand-', '').toUpperCase() + ' THAILAND' : destination.region.toUpperCase() + ' VIETNAM'}
                                             </span>
                                         </div>
 

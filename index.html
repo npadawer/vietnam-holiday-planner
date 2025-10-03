@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Enhanced Vietnam Holiday Planner with Vietnamese cultural design elements and animations">
-    <title>Vietnam Holiday Planner v2.1 - Thailand Regions + Restaurants</title>
-    <!-- MAJOR UPDATE: Thailand North/Central/South + Restaurant Data v2.1 -->
+    <title>Vietnam Holiday Planner v2.2 - Intelligent Weather Recommendations</title>
+    <!-- MAJOR UPDATE: Intelligent December recommendations based on temperature + activity type v2.2 -->
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -228,7 +228,7 @@
                     "Bia Hoi Corner - famous beer street"
                 ],
                 "duration": "2-3 days",
-                "bestTimeToVisit": "October-April (cool and dry), December ideal",
+                "bestTimeToVisit": "October-April (cool and dry), March-April warmest",
                 "decemberWeather": {
                     "temperature": "15-20°C (59-68°F)",
                     "rainfall": "20mm (0.8 inches) - very low",
@@ -473,7 +473,7 @@
                     "Sung Sot Cave (Surprise Cave)"
                 ],
                 "duration": "2-3 days",
-                "bestTimeToVisit": "October-April, December perfect for clear skies",
+                "bestTimeToVisit": "October-April, March-May warmest for boat tours",
                 "decemberWeather": {
                     "temperature": "15-22°C (59-72°F)",
                     "rainfall": "35mm (1.4 inches) - low",
@@ -557,7 +557,7 @@
                     "Vacay vibes and peaceful atmosphere"
                 ],
                 "duration": "2-3 days",
-                "bestTimeToVisit": "March-May, September-November, December ideal",
+                "bestTimeToVisit": "March-May, September-November (March-May warmest)",
                 "decemberWeather": {
                     "temperature": "16-23°C (61-73°F)",
                     "rainfall": "30mm (1.2 inches) - very low",
@@ -593,7 +593,7 @@
                     "Fresh seafood restaurants"
                 ],
                 "duration": "2-3 days",
-                "bestTimeToVisit": "March-May, September-November, December for clear weather",
+                "bestTimeToVisit": "March-May, September-November (March-May warmest)",
                 "decemberWeather": {
                     "temperature": "17-24°C (63-75°F)",
                     "rainfall": "25mm (1.0 inches) - very low",
@@ -628,7 +628,7 @@
                     "Traditional BBQ goat meat"
                 ],
                 "duration": "1-2 days",
-                "bestTimeToVisit": "October-April, December ideal for clear skies",
+                "bestTimeToVisit": "October-April (March-April warmest for hiking)",
                 "decemberWeather": {
                     "temperature": "16-22°C (61-72°F)",
                     "rainfall": "20mm (0.8 inches) - very low",
@@ -1279,7 +1279,7 @@
                     "Nearby Pai - small mountain town (3h drive)"
                 ],
                 "duration": "3-7 days",
-                "bestTimeToVisit": "November-February (cool and dry), December perfect",
+                "bestTimeToVisit": "November-February (cool season), March-May warmest",
                 "decemberWeather": {
                     "temperature": "15-28°C (59-82°F)",
                     "rainfall": "5mm (0.2 inches) - almost none",
@@ -3357,7 +3357,67 @@
 
                                         <div className="mt-4 pt-4 border-t border-gray-100">
                                             <div className="text-sm text-gray-500 mb-2">
-                                                📅 {destination.duration} • 🌡️ Best: December
+                                                📅 {destination.duration} • 🌡️ {(() => {
+                                                    // Intelligent December recommendation logic based on temperature AND activity type
+                                                    const getDecemberRecommendation = (dest) => {
+                                                        const tempMatch = dest.decemberWeather?.temperature?.match(/(\d+)-(\d+)°C/);
+                                                        if (!tempMatch) return "Best: December";
+
+                                                        const minTemp = parseInt(tempMatch[1]);
+                                                        const maxTemp = parseInt(tempMatch[2]);
+                                                        const avgTemp = (minTemp + maxTemp) / 2;
+
+                                                        // Categorize destination by primary activity type based on highlights
+                                                        const highlights = dest.highlights ? dest.highlights.join(' ').toLowerCase() : '';
+
+                                                        const isBeachDestination = highlights.includes('beach') || highlights.includes('swimming') ||
+                                                                                 highlights.includes('snorkel') || highlights.includes('diving') ||
+                                                                                 highlights.includes('water sports') || highlights.includes('island');
+
+                                                        const isMountainTrekking = highlights.includes('mountain') || highlights.includes('trek') ||
+                                                                                 highlights.includes('hike') || highlights.includes('peak') ||
+                                                                                 highlights.includes('loop') || highlights.includes('motorbike');
+
+                                                        const isCulturalUrban = highlights.includes('quarter') || highlights.includes('temple') ||
+                                                                              highlights.includes('museum') || highlights.includes('architecture') ||
+                                                                              highlights.includes('street') || highlights.includes('market');
+
+                                                        const isBoatCruise = highlights.includes('cruise') || highlights.includes('boat') ||
+                                                                           highlights.includes('junk') || highlights.includes('kayak') ||
+                                                                           highlights.includes('bay');
+
+                                                        // Apply activity-specific temperature logic
+                                                        if (isBeachDestination) {
+                                                            // Beach destinations need warm weather for swimming/water activities
+                                                            if (avgTemp >= 24) return "Best: December";
+                                                            else if (avgTemp >= 20) return "Cool: December (limited swimming)";
+                                                            else return "Too Cold: December (beach activities not ideal)";
+                                                        } else if (isMountainTrekking) {
+                                                            // Mountain/trekking destinations are often better in cooler weather
+                                                            if (avgTemp >= 15 && avgTemp <= 25) return "Best: December (ideal trekking weather)";
+                                                            else if (avgTemp >= 10) return "Cool: December (great for hiking)";
+                                                            else return "Cold: December (pack warm gear)";
+                                                        } else if (isCulturalUrban) {
+                                                            // Cultural/urban destinations good for walking and sightseeing
+                                                            if (avgTemp >= 18 && avgTemp <= 28) return "Best: December (perfect for walking)";
+                                                            else if (avgTemp >= 15) return "Cool: December (great for sightseeing)";
+                                                            else return "Cool: December (pack layers)";
+                                                        } else if (isBoatCruise) {
+                                                            // Boat/cruise destinations need decent weather but not necessarily warm
+                                                            if (avgTemp >= 20) return "Best: December (excellent for cruising)";
+                                                            else if (avgTemp >= 15) return "Cool: December (scenic cruises)";
+                                                            else return "Cool: December (dress warmly on deck)";
+                                                        } else {
+                                                            // Default logic for mixed or unclear activity types
+                                                            if (avgTemp >= 24) return "Best: December";
+                                                            else if (avgTemp >= 20) return "Cool: December";
+                                                            else if (avgTemp >= 15) return "Cool: December";
+                                                            else return "Cold: December";
+                                                        }
+                                                    };
+
+                                                    return getDecemberRecommendation(destination);
+                                                })()}
                                             </div>
                                             {destination.airports && (
                                                 <div className="text-xs text-gray-500 mb-2">

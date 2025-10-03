@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Enhanced Vietnam Holiday Planner with Vietnamese cultural design elements and animations">
-    <title>Vietnam Holiday Planner v2.3 - Weather Icons + Intelligent Recommendations</title>
-    <!-- UPDATE: Added snowflake icons for cold destinations + intelligent recommendations v2.3 -->
+    <title>Vietnam Holiday Planner v2.4 - Country-Level Regional Filtering</title>
+    <!-- UPDATE: Added All Vietnam and All Thailand country filtering options v2.4 -->
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -3121,7 +3121,9 @@
                                      destination.highlights.some(h => h.toLowerCase().includes(searchTerm.toLowerCase()));
                 const matchesRegion = selectedRegion === 'all' ||
                                      selectedRegion === 'favorites' ||
-                                     destination.region === selectedRegion;
+                                     destination.region === selectedRegion ||
+                                     (selectedRegion === 'vietnam' && !destination.region.startsWith('thailand-')) ||
+                                     (selectedRegion === 'thailand' && destination.region.startsWith('thailand-'));
                 const matchesFavorites = selectedRegion !== 'favorites' || favorites.includes(destination.id);
                 return matchesSearch && matchesRegion && matchesFavorites;
             });
@@ -3210,9 +3212,11 @@
                                     className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                                 >
                                     <option value="all">All Regions</option>
+                                    <option value="vietnam">🇻🇳 All Vietnam</option>
                                     <option value="north">North Vietnam</option>
                                     <option value="central">Central Vietnam</option>
                                     <option value="south">South Vietnam</option>
+                                    <option value="thailand">🇹🇭 All Thailand</option>
                                     <option value="thailand-north">🇹🇭 North Thailand</option>
                                     <option value="thailand-central">🇹🇭 Central Thailand</option>
                                     <option value="thailand-south">🇹🇭 South Thailand</option>

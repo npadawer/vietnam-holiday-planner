@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Enhanced Vietnam Holiday Planner with Vietnamese cultural design elements and animations">
-    <title>Vietnam Holiday Planner v2.6 - Fixed Koh Phangan + Downvote Feature</title>
-    <!-- UPDATE: Fixed Koh Phangan rendering issue + downvote functionality v2.6 -->
+    <title>Vietnam Holiday Planner v2.7 - Fixed Button Overlap Issue</title>
+    <!-- UPDATE: Fixed heart/downvote buttons overlapping with region labels v2.7 -->
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -3395,13 +3395,13 @@
                                 {filteredDestinations.map((destination) => (
                                     <div key={destination.id} className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow cursor-pointer border border-gray-200 p-6 relative"
                                          onClick={() => onDestinationSelect(destination)}>
-                                        <div className="absolute top-3 right-3 z-10 flex gap-1">
+                                        <div className="absolute top-2 right-2 z-10 flex gap-1">
                                             <button
                                                 onClick={(e) => {
                                                     e.stopPropagation();
                                                     toggleFavorite(destination);
                                                 }}
-                                                className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+                                                className="p-1 hover:bg-gray-100 rounded-full transition-colors text-sm"
                                                 title={favorites.includes(destination.id) ? 'Remove from favorites' : 'Add to favorites'}
                                             >
                                                 {favorites.includes(destination.id) ? '❤️' : '🤍'}
@@ -3411,13 +3411,13 @@
                                                     e.stopPropagation();
                                                     toggleDownvote(destination);
                                                 }}
-                                                className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+                                                className="p-1 hover:bg-gray-100 rounded-full transition-colors text-sm"
                                                 title={downvoted.includes(destination.id) ? 'Remove from downvoted' : 'Downvote destination'}
                                             >
                                                 {downvoted.includes(destination.id) ? '👎' : '👇'}
                                             </button>
                                         </div>
-                                        <div className="flex items-start justify-between mb-3 pr-10">
+                                        <div className="flex items-start justify-between mb-3 pr-16">
                                             <h3 className="text-xl font-bold text-gray-800">{destination.name}</h3>
                                             <span
                                                 className="px-3 py-1 rounded-full text-xs font-medium text-white"
